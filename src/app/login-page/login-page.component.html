@@ -1,0 +1,26 @@
+<div class="login-wrapper">
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+    <h2 class="form-title">Please sign in to continue</h2>
+    <div class="form-control">
+      <label for="email">Email:</label>
+      <input formControlName="email" class="email" type="email" id="email" placeholder="Enter email">
+      <div
+        *ngIf="form.get('email').invalid && form.get('email').touched"
+        class="validation">
+        <small *ngIf="form.get('email')?.errors['required']">Field "Email" can't be empty</small>
+        <small *ngIf="form.get('email')?.errors['email']">Bad email format</small>
+        <small *ngIf="form.get('email')?.errors['mailFormat']">Email format does not meet requirements</small>
+      </div>
+    </div>
+
+    <div class="form-control">
+      <label for="password">Password:</label>
+      <input formControlName="password" class="password" type="password" id="password" placeholder="Enter password">
+    </div>
+
+    <div class="btn-block">
+      <button type="submit" class="btn dark" [disabled]="form.invalid">Sign in</button>
+      <a class="btn dark" routerLink='/sign-up'>Sign up</a>
+    </div>
+  </form>
+</div>

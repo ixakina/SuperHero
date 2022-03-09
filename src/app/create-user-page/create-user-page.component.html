@@ -1,0 +1,25 @@
+<div class="login-wrapper">
+  <form class="form" [formGroup]="form" (ngSubmit)="createUser()">
+    <h2 class="form-title">Please sign up to continue</h2>
+
+    <div class="form-control">
+      <label for="username">Username</label>
+      <input formControlName="username" class="username" type="text" id="username" placeholder="Enter username">
+    </div>
+
+    <div class="form-control">
+      <label for="email">Email:</label>
+      <input formControlName="email" class="email" type="email" id="email" placeholder="Enter email">
+    </div>
+
+    <div class="form-control">
+      <label for="password">Password:</label>
+      <input formControlName="password" class="password" type="password" id="password" placeholder="Enter password">
+    </div>
+
+    <div class="btn-block">
+      <button type="submit" class="btn dark" [disabled]="form.invalid">Sign up</button>
+      <a class="btn dark" routerLink='/'>Cancel</a>
+    </div>
+  </form>
+</div>

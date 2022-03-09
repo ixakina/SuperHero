@@ -1,0 +1,42 @@
+.form {
+  max-width: 50%;
+  padding: 20px;
+  background: #d0b8e7;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0 auto;
+  transform: translate(0, 50%);
+}
+
+.form-title {
+  font-size: 2rem;
+}
+
+input {
+  height: 40px;
+  padding: 5px;
+  border: 2px solid rebeccapurple;
+  &::placeholder {
+    font-size: 1.5rem;
+    color: darkgrey;
+  }
+}
+
+label {
+  font-size: 1.5rem;
+}
+.form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+
