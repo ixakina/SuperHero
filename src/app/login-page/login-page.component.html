@@ -1,5 +1,8 @@
 <div class="login-wrapper">
   <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+
+    <p class="notification" *ngIf="message">{{message}}</p>
+
     <h2 class="form-title">Please sign in to continue</h2>
     <div class="form-control">
       <label for="email">Email:</label>

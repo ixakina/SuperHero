@@ -8,6 +8,27 @@ export interface IUser {
   username: string,
   email: string,
   password: string,
-  expDate?: Date | null,
-  token?: string
+  token?: Date | '',
+  searchHistory?: string[],
+  selectedHeroesIds?: string[],
+}
+
+export interface IResponse {
+  results: IHero[];
+}
+
+export interface IHero {
+  id: string,
+  name: string,
+  powerstats: {
+    intelligence: string,
+    strength: string,
+    speed: string,
+    durability: string,
+    power: string,
+    combat: string
+  },
+  image: {
+    url: string;
+  }
 }

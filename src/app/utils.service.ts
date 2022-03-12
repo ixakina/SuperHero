@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {IUser} from "./interfaces";
+import {LocStorKeys} from "./constants";
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,15 @@ export class UtilsService {
 
   constructor() { }
 
-  randomToken() {
-    return (Math.random()*100000).toFixed(0)
+  setUsers(): IUser[] {
+    return localStorage.getItem(LocStorKeys.USERS) ? JSON.parse(localStorage.getItem(LocStorKeys.USERS)) : [];
   }
 
-  users(): IUser[] {
-    return localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [];
+  getUsers(): IUser[] {
+    return JSON.parse(localStorage.getItem(LocStorKeys.USERS));
+  }
+
+  getCurrentUserId(): string {
+    return JSON.parse(localStorage.getItem(LocStorKeys.CURRENT_USER_ID));
   }
 }

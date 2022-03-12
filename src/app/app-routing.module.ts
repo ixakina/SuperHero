@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginPageComponent} from "./login-page/login-page.component";
 import {CreateUserPageComponent} from "./create-user-page/create-user-page.component";
 import {SelectHeroesComponent} from "./select-heroes/select-heroes.component";
+import {AuthGuardService} from "./auth-guard.service";
 
 const routes: Routes = [
   {path: '', component: LoginPageComponent},
   {path: 'sign-up', component: CreateUserPageComponent},
-  {path: 'select-heroes', component: SelectHeroesComponent}
+  {path: 'select-heroes', component: SelectHeroesComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

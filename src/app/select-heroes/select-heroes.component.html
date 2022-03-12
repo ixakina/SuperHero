@@ -1,1 +1,36 @@
-<p>select-heroes works!</p>
+<div class="wrapper">
+  <div class="heroes-page-wrapper">
+    <div class="search">
+      <div class="search-filter-btn">A</div>
+      <input
+        [(ngModel)]="searchValue"
+        type="search" class="search-input"
+        (keydown.enter)="onSearchStart()"
+        placeholder="Enter hero name..."
+      >
+    </div>
+    <div class="search-history" *ngIf="searchHistory">
+      <span (click)="searchValue = item" class="search-item" *ngFor="let item of searchHistory">{{item}}</span>
+    </div>
+    <ul class="heroes-cards-list">
+      <li class="hero-card" *ngFor="let hero of heroes">
+        <div class="hero-pic">
+          <img src="{{hero.image.url}}" alt="hero-pic" class="hero-img">
+        </div>
+        <div class="hero-info">
+          <span class="hero-name">{{hero.name}}</span>
+          <span class="card-title">Stats:</span>
+          <ul class="hero-stats">
+            <li *ngIf="hero.powerstats.intelligence" class="hero-stat">intelligence: {{hero.powerstats.intelligence}}</li>
+            <li *ngIf="hero.powerstats.strength" class="hero-stat">strength: {{hero.powerstats.strength}}</li>
+            <li *ngIf="hero.powerstats.speed" class="hero-stat">speed: {{hero.powerstats.speed}}</li>
+            <li *ngIf="hero.powerstats.durability" class="hero-stat">durability: {{hero.powerstats.durability}}</li>
+            <li *ngIf="hero.powerstats.power" class="hero-stat">power: {{hero.powerstats.power}}</li>
+            <li *ngIf="hero.powerstats.combat" class="hero-stat">combat: {{hero.powerstats.combat}}</li>
+          </ul>
+          <button class="btn dark card-btn" [disabled]="selectedHeroesIds.includes(hero.id)" (click)="selectHero(hero.id)">select</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
