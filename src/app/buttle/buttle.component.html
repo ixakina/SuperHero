@@ -1,0 +1,60 @@
+<div class="wrapper">
+  <div class="buttle-page-wrapper">
+    <div class="hero hero-card">
+        <div class="hero-pic">
+          <img alt="hero-pic" class="hero-img" src="{{hero.image.url}}">
+        </div>
+        <div class="hero-info">
+          <div class="card-description">
+            <span class="hero-name">{{hero.name}}</span>
+            <span class="card-title">Stats:</span>
+            <ul class="hero-stats" >
+              <li *ngIf="hero.powerstats.intelligence" class="hero-stat">
+                intelligence: {{hero.powerstats.intelligence}}</li>
+              <li *ngIf="hero.powerstats.strength" class="hero-stat">strength: {{hero.powerstats.strength}}</li>
+              <li *ngIf="hero.powerstats.speed" class="hero-stat">speed: {{hero.powerstats.speed}}</li>
+              <li *ngIf="hero.powerstats.durability" class="hero-stat">durability: {{hero.powerstats.durability}}</li>
+              <li *ngIf="hero.powerstats.power" class="hero-stat">power: {{hero.powerstats.power}}</li>
+              <li *ngIf="hero.powerstats.combat" class="hero-stat">combat: {{hero.powerstats.combat}}</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+    <div class="buttle">
+      <div class="loader" *ngIf="isFight">They are fighting....</div>
+      <div *ngIf="winner" class="modal">
+        <span class="modal-text">Winner: <br> {{winner}}</span>
+        <button class="modal-btn" (click)="winner = ''">Close</button>
+      </div>
+      <div class="buttle-description">
+        <span class="desc-name">{{hero.name}}</span>
+        <button
+          class="btn dark"
+          (click)="startFight()"
+        >START!</button>
+        <span class="desc-name">{{opponent.name}}</span>
+      </div>
+      <div class="powerups"></div>
+    </div>
+    <div class="opponent hero-card">
+      <div class="hero-pic">
+        <img alt="hero-pic" class="hero-img" src="{{opponent.image.url}}">
+      </div>
+      <div class="hero-info">
+        <div class="card-description">
+          <span class="hero-name">{{opponent.name}}</span>
+          <span class="card-title">Stats:</span>
+          <ul class="hero-stats" >
+            <li *ngIf="opponent.powerstats.intelligence" class="hero-stat">
+              intelligence: {{opponent.powerstats.intelligence}}</li>
+            <li *ngIf="opponent.powerstats.strength" class="hero-stat">strength: {{opponent.powerstats.strength}}</li>
+            <li *ngIf="opponent.powerstats.speed" class="hero-stat">speed: {{opponent.powerstats.speed}}</li>
+            <li *ngIf="opponent.powerstats.durability" class="hero-stat">durability: {{opponent.powerstats.durability}}</li>
+            <li *ngIf="opponent.powerstats.power" class="hero-stat">power: {{opponent.powerstats.power}}</li>
+            <li *ngIf="opponent.powerstats.combat" class="hero-stat">combat: {{opponent.powerstats.combat}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+.hero-info-wrapper {
+  padding-top: 30px;
+  display: flex;
+  max-height: 100vh;
+  gap: 30px;
+}
+
+.hero-pic {
+  flex: 0 1 30%;
+  align-self: flex-start;
+}
+
+.hero-img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-info {
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 2rem;
+  gap: 30px;
+  max-height: 100vh;
+  }
+
+.info-name {
+  font-size:  4rem;
+}
+
+.info-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  line-height: 120%;
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.info-block {
+  width: 50%;
+  flex-grow: 1;
+  border-top: 3px solid rebeccapurple;
+  padding-top: 20px;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

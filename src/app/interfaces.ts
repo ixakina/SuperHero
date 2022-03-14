@@ -11,6 +11,14 @@ export interface IUser {
   token?: Date | '',
   searchHistory?: string[],
   selectedHeroesIds?: string[],
+  buttles?: IButtle[]
+}
+
+export interface IButtle {
+  hero: string,
+  opponent: string,
+  date: string,
+  result: string
 }
 
 export interface IResponse {

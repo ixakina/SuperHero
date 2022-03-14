@@ -13,6 +13,8 @@ import {AlphabetComponent} from './alphabet/alphabet.component';
 import {UserInfoComponent} from "./user-info/user-info.component";
 import {HeroesTabComponent} from "./user-info/heroes-tab/heroes-tab.component";
 import { HeroInfoComponent } from './hero-info/hero-info.component';
+import { ButtlesHistoryTabComponent } from './user-info/buttles-history-tab/buttles-history-tab.component';
+import { ButtleComponent } from './buttle/buttle.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { HeroInfoComponent } from './hero-info/hero-info.component';
     AlphabetComponent,
     UserInfoComponent,
     HeroesTabComponent,
-    HeroInfoComponent
+    HeroInfoComponent,
+    ButtlesHistoryTabComponent,
+    ButtleComponent
   ],
 
   imports: [

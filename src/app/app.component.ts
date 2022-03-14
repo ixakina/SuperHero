@@ -3,7 +3,6 @@ import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
 import {UtilsService} from "./utils.service";
 
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,8 +12,7 @@ export class AppComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private router: Router,
-    public utils: UtilsService
-
+    public utils: UtilsService,
   ) {
   }
 

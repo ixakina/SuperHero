@@ -4,6 +4,8 @@
       <nav class="header-nav">
         <ul class="nav-list">
           <li class="logo">Super Hero</li>
+          <li *ngIf="utils.hasSelectedHeroes()" >
+            <button [routerLink]="['/buttle']" class="btn light header-btn">Fight!</button></li>
           <li class="nav-controls">
             <button
               class="btn light header-btn"

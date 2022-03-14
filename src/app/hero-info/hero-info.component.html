@@ -1,0 +1,66 @@
+<div class="wrapper">
+  <div class="hero-info-wrapper">
+    <div class="hero-pic">
+      <img src="{{hero.image.url}}" alt="" class="hero-img">
+    </div>
+    <div class="hero-info">
+      <div class="info-block">
+        <h2 class="info-name">Name: {{hero.name}}</h2>
+      </div>
+
+      <div class="info-block">
+        <h3 class="info-title">Biography</h3>
+        <ul class="info-list">
+          <li class="info-item">Full-name: {{hero.biography["full-name"]}}</li>
+          <li class="info-item">Alter-egos: {{hero.biography["alter-egos"]}}</li>
+          <li class="info-item">Aliases: {{hero.biography.aliases}}</li>
+          <li class="info-item">Place-of-birth: {{hero.biography["place-of-birth"]}}</li>
+          <li class="info-item">First-appearance: {{hero.biography["first-appearance"]}}</li>
+          <li class="info-item">Publisher: {{hero.biography.publisher}}</li>
+          <li class="info-item">Alignment: {{hero.biography.alignment}}</li>
+        </ul>
+      </div>
+
+     <div class="info-block">
+       <h3 class="info-title">Appearance</h3>
+       <ul class="info-list">
+         <li class="info-item">gender: {{hero.appearance.gender}}</li>
+         <li class="info-item">race: {{hero.appearance.race}}</li>
+         <li class="info-item">height: {{hero.appearance.height}}</li>
+         <li class="info-item">weight: {{hero.appearance.weight}}</li>
+         <li class="info-item">eye-color: {{hero.appearance["eye-color"]}}</li>
+         <li class="info-item">hair-color: {{hero.appearance.height}}</li>
+       </ul>
+     </div>
+
+     <div class="info-block">
+       <h3 class="info-title">Powerstats</h3>
+       <ul class="info-list">
+         <li class="info-item">intelligence: {{hero.powerstats.intelligence}}</li>
+         <li class="info-item">strength: {{hero.powerstats.strength}}</li>
+         <li class="info-item">speed: {{hero.powerstats.speed}}</li>
+         <li class="info-item">durability: {{hero.powerstats.durability}}</li>
+         <li class="info-item">power: {{hero.powerstats.power}}</li>
+         <li class="info-item">combat: {{hero.powerstats.combat}}</li>
+       </ul>
+     </div>
+
+     <div class="info-block">
+       <h3 class="info-title">Work</h3>
+       <ul class="info-list">
+         <li class="info-item">occupation: {{hero.work.occupation}}</li>
+         <li class="info-item">base: {{hero.work.base}}</li>
+       </ul>
+     </div>
+
+     <div class="info-block">
+       <h3 class="info-title">Connections</h3>
+       <ul class="info-list">
+         <li class="info-item">group-affiliation: {{hero.connections["group-affiliation"]}}</li>
+         <li class="info-item">relatives: {{hero.connections.relatives}}</li>
+       </ul>
+     </div>
+
+    </div>
+  </div>
+</div>

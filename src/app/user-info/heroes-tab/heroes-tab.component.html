@@ -1,0 +1,36 @@
+<ul class="heroes-cards-list" #heroesList>
+  <li *ngFor="let hero of heroes" class="hero-card">
+    <div class="hero-pic">
+      <img alt="hero-pic" class="hero-img" src="{{hero.image.url}}">
+    </div>
+    <div class="hero-info">
+     <div class="card-description">
+       <span class="hero-name">{{hero.name}}</span>
+       <span class="card-title">Stats:</span>
+       <ul class="hero-stats" >
+         <li *ngIf="hero.powerstats.intelligence" class="hero-stat">
+           intelligence: {{hero.powerstats.intelligence}}</li>
+         <li *ngIf="hero.powerstats.strength" class="hero-stat">strength: {{hero.powerstats.strength}}</li>
+         <li *ngIf="hero.powerstats.speed" class="hero-stat">speed: {{hero.powerstats.speed}}</li>
+         <li *ngIf="hero.powerstats.durability" class="hero-stat">durability: {{hero.powerstats.durability}}</li>
+         <li *ngIf="hero.powerstats.power" class="hero-stat">power: {{hero.powerstats.power}}</li>
+         <li *ngIf="hero.powerstats.combat" class="hero-stat">combat: {{hero.powerstats.combat}}</li>
+       </ul>
+     </div>
+      <div class="card-btns">
+        <button
+          class="btn dark card-btn"
+          (click)="deleteHeroFromSelected(hero.id)">delete</button>
+        <button
+          class="btn dark card-btn"
+          [routerLink]="['/hero', hero.id]"
+        >view
+        </button>
+      </div>
+    </div>
+  </li>
+</ul>
+<button
+  class="btn dark add-btn"
+  [routerLink]="['/select-heroes']"
+>Add hero</button>
