@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import {AuthService} from "../auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CustomValidators} from "../custom-validators";
 
 @Component({
-  selector: 'app-create-user-page',
-  templateUrl: './create-user-page.component.html',
-  styleUrls: ['./create-user-page.component.scss']
+  selector: 'app-create-new-user',
+  templateUrl: './create-new-user.component.html',
+  styleUrls: ['./create-new-user.component.scss']
 })
-export class CreateUserPageComponent {
+export class CreateNewUserComponent {
 
   public form: FormGroup;
 

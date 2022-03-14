@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <div class="info-wrapper">
+    <nav class="info-nav">
+      <ul class="nav-list">
+        <li class="nav-item btn dark"
+            [class.active]="activeTab === 'heroes'"
+            (click)="activeTab = 'heroes'"
+        >Heroes list</li>
+        <li
+          class="nav-item btn dark"
+          [class.active]="activeTab === 'buttles'"
+          (click)="activeTab = 'buttles'"
+        >Battles history</li>
+        <li
+          class="nav-item btn dark"
+          [class.active]="activeTab === 'powerups'"
+          (click)="activeTab = 'powerups'"
+        >Powerups</li>
+      </ul>
+    </nav>
+    <div class="tab-info">
+      <app-heroes-tab *ngIf="activeTab === 'heroes'"></app-heroes-tab>
+    </div>
+  </div>
+</div>

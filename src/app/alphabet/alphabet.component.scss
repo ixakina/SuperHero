@@ -1,0 +1,33 @@
+.search-filter-btn,
+.letter {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.alphabet {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  max-width: 150px;
+  max-height: 130px;
+  overflow: auto;
+}
+
+.letter {
+  background: #d0b8e7;
+  cursor: pointer;
+  &:hover {
+    background: rebeccapurple;
+  }
+}
+
+.search-filter-btn{
+  background: rebeccapurple;
+  margin-bottom: 10px;
+  }

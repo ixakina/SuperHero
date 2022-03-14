@@ -5,9 +5,13 @@
         <ul class="nav-list">
           <li class="logo">Super Hero</li>
           <li class="nav-controls">
-            <button class="btn light exit" (click)="logout()">Exit</button>
+            <button
+              class="btn light header-btn"
+              *ngIf="utils.getCurrentUserId()"
+              [routerLink]="['/user-info']"
+            >User Info</button>
+            <button class="btn light header-btn" (click)="logout()">Exit</button>
           </li>
-
         </ul>
       </nav>
     </div>

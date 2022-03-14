@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./auth.service";
 import {Router} from "@angular/router";
+import {UtilsService} from "./utils.service";
 
 
 @Component({
@@ -10,7 +11,10 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit {
   constructor(
-    private auth: AuthService,private router: Router
+    public auth: AuthService,
+    private router: Router,
+    public utils: UtilsService
+
   ) {
   }
 

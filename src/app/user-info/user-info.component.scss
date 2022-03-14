@@ -1,0 +1,33 @@
+.info-wrapper {
+  padding: 30px 0;
+}
+
+.info-nav {
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-list {
+  display: flex;
+  gap: 50px;
+}
+
+.nav-item {
+  width: 200px;
+  font-size: 2rem;
+  cursor: pointer;
+  &:hover {
+    background: #d0b8e7;
+  }
+}
+
+.nav-item.active {
+  background: #d0b8e7;
+  border: 5px solid rebeccapurple;
+  color: rebeccapurple;
+}
+
+.tab-info {
+  position: relative;
+}

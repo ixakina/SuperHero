@@ -1,6 +1,7 @@
 .heroes-page-wrapper {
   max-width: 50%;
   min-width: 600px;
+  margin: 0 auto;
 }
 
 .search {
@@ -10,78 +11,17 @@
   padding: 20px 0;
 }
 
-.search-filter-btn {
-  width: 40px;
-  height: 40px;
-  background: rebeccapurple;
-  border-radius: 50%;
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .search-input {
+  align-self: flex-start;
   flex: 1 1 auto;
   border: 2px solid rebeccapurple;
   padding: 0 20px;
+  height: 40px;
   font-size: 2rem;
+
   &::placeholder {
     font-size: 2rem;
   }
-}
-
-  .hero-card {
-    width: 100%;
-    display: flex;
-    max-height: 300px;
-    border: 2px solid rebeccapurple;
-  }
-
-  .hero-info {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-  }
-
-.hero-pic {
-  flex: 0 1 30%;
-}
-
-  .hero-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-.hero-name {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.card-title {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-.card-btn {
-  align-self: self-end;
-}
-
-.hero-stats {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 1.5rem;
-}
-
-.heroes-cards-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .search-history {
@@ -99,4 +39,9 @@
   padding: 0 10px;
   border-radius: 10px;
   cursor: pointer;
+
+  &:hover {
+    background: rebeccapurple;
+    color: white;
+  }
 }
