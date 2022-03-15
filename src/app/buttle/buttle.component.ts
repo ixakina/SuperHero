@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {IButtle, IHero, IUser} from "../interfaces";
-import {UtilsService} from "../utils.service";
-import {HeroesDataService} from "../heroes-data.service";
-import {AuthService} from "../auth.service";
-import {LocStorKeys} from "../constants";
+import {IButtle, IHero, IUser} from "../common/interfaces";
+import {UtilsService} from "../services/utils.service";
+import {HeroesDataService} from "../services/heroes-data.service";
+import {AuthService} from "../services/auth.service";
+import {LocStorKeys} from "../common/constants";
+import {take, timer} from "rxjs";
 
 @Component({
   selector: 'app-buttle',
@@ -36,12 +37,12 @@ export class ButtleComponent implements OnInit {
   public startFight() {
     this.isFight = !this.isFight;
 
-    setTimeout(() => {
+    timer(5000).pipe(take(1)).subscribe(() => {
       this.isFight = !this.isFight;
       this.winner = +this.hero.powerstats.power > +this.opponent.powerstats.power ?
         this.hero.name : this.opponent.name;
       this.saveButtle();
-    }, 5000)
+    })
   }
 
   private setHero(user: IUser): void {
@@ -69,6 +70,10 @@ export class ButtleComponent implements OnInit {
         {...user, buttles: this.buttles} : user
     })
     localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.auth.users));
+  }
+
+  public selectPowerup(event: any): void {
+    event.target.classList.toggle('selected');
   }
 
 }

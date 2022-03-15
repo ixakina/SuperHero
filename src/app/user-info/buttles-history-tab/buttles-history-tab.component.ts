@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {SortCase, SortType} from "../../constants";
-import {IButtle, IUser} from "../../interfaces";
-import {UtilsService} from "../../utils.service";
+import {SortCase, SortType} from "../../common/constants";
+import {IButtle, IUser} from "../../common/interfaces";
+import {UtilsService} from "../../services/utils.service";
 
 @Component({
   selector: 'app-buttles-history-tab',

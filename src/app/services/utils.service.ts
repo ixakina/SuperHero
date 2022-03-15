@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {IUser} from "./interfaces";
-import {LocStorKeys} from "./constants";
+import {IUser} from "../common/interfaces";
+import {LocStorKeys} from "../common/constants";
 
 @Injectable({
   providedIn: 'root'

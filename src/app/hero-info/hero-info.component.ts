@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
-import {IHero} from "../interfaces";
+import {IHero} from "../common/interfaces";
 import {switchMap} from "rxjs";
-import {HeroesDataService} from "../heroes-data.service";
+import {HeroesDataService} from "../services/heroes-data.service";
 
 @Component({
   selector: 'app-hero-info',

@@ -15,6 +15,7 @@ import {HeroesTabComponent} from "./user-info/heroes-tab/heroes-tab.component";
 import { HeroInfoComponent } from './hero-info/hero-info.component';
 import { ButtlesHistoryTabComponent } from './user-info/buttles-history-tab/buttles-history-tab.component';
 import { ButtleComponent } from './buttle/buttle.component';
+import { PowerupsTabComponent } from './user-info/powerups-tab/powerups-tab.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ButtleComponent } from './buttle/buttle.component';
     HeroesTabComponent,
     HeroInfoComponent,
     ButtlesHistoryTabComponent,
-    ButtleComponent
+    ButtleComponent,
+    PowerupsTabComponent
   ],
 
   imports: [

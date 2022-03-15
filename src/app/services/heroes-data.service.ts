@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {apiUrl} from "./constants";
-import {IHero, IResponse} from "./interfaces";
+import {apiUrl} from "../common/constants";
+import {IHero, IResponse} from "../common/interfaces";
 import {Observable} from "rxjs";
 
 @Injectable({

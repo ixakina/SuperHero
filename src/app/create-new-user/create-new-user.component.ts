@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {AuthService} from "../auth.service";
+import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CustomValidators} from "../common/custom-validators";
 
 @Component({
   selector: 'app-create-new-user',

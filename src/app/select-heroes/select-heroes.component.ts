@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HeroesDataService} from "../heroes-data.service";
-import {IHero, IResponse, IUser} from "../interfaces";
-import {LocStorKeys} from "../constants";
-import {UtilsService} from "../utils.service";
-import {AuthService} from "../auth.service";
+import {HeroesDataService} from "../services/heroes-data.service";
+import {IHero, IResponse, IUser} from "../common/interfaces";
+import {LocStorKeys} from "../common/constants";
+import {UtilsService} from "../services/utils.service";
+import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {debounceTime, Subscription, switchMap} from "rxjs";
 

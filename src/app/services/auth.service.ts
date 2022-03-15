@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {IUser} from "./interfaces";
+import {IUser} from "../common/interfaces";
 import {UtilsService} from "./utils.service";
 import {Router} from "@angular/router";
-import {LocStorKeys} from "./constants";
+import {LocStorKeys} from "../common/constants";
 
 @Injectable({
   providedIn: 'root'

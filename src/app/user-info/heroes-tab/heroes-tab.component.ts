@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {IHero, IUser} from "../../interfaces";
-import {UtilsService} from "../../utils.service";
-import {HeroesDataService} from "../../heroes-data.service";
-import {AuthService} from "../../auth.service";
-import {LocStorKeys} from "../../constants";
+import {IHero, IUser} from "../../common/interfaces";
+import {UtilsService} from "../../services/utils.service";
+import {HeroesDataService} from "../../services/heroes-data.service";
+import {AuthService} from "../../services/auth.service";
+import {LocStorKeys} from "../../common/constants";
 
 @Component({
   selector: 'app-heroes-tab',
