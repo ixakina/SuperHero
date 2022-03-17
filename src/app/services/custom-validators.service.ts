@@ -41,7 +41,7 @@ export class CustomValidatorsService {
   }
 
   public strictDots(control: FormControl): { [key: string]: boolean } {
-    if (control.value.slice(0, control.value.indexOf('@')).split('.').length > 4) {
+    if (control.value?.slice(0, control.value.indexOf('@')).split('.').length > 4) {
       return {dots: true}
     }
     return null;
@@ -49,9 +49,9 @@ export class CustomValidatorsService {
 
   public strictContent(control: AbstractControl): { [key: string]: boolean } {
     const allowedSymbols = ['$', '%', '.', '&', '!', '-'];
-    const isUppercaseChar = control.value.split('').some((char: string) => char == char.toUpperCase());
-    const isSpecialSymbols = control.value.split('').some((char: string) => allowedSymbols.includes(char));
-    const isNumber = control.value.split('').some((char: string) => isFinite(+char));
+    const isUppercaseChar = control.value?.split('').some((char: string) => char == char.toUpperCase());
+    const isSpecialSymbols = control.value?.split('').some((char: string) => allowedSymbols.includes(char));
+    const isNumber = control.value?.split('').some((char: string) => isFinite(+char));
     if (isNumber === false || isSpecialSymbols === false || isUppercaseChar === false) {
       return {content: true}
     }
@@ -59,7 +59,7 @@ export class CustomValidatorsService {
   }
 
   public nameCase(control: AbstractControl): { [key: string]: boolean } {
-    const value = control.value.split('');
+    const value = control.value?.split('');
     const isOneUppercaseChar = value.filter((char: string) => char !== char.toLowerCase()).length === 1;
     const indexOfUppercaseChar = value.findIndex((char: string) => char !== char.toLowerCase());
     const isCamelcase = isOneUppercaseChar &&
@@ -68,11 +68,11 @@ export class CustomValidatorsService {
       !value.includes('-') &&
       !value.includes(' ');
 
-    const isKebabCase = control.value.includes('-') &&
-      control.value.split('-').length === 2 &&
-      control.value.indexOf('-') !== 0 &&
-      control.value.indexOf('-') !== (control.value.length - 1) &&
-      control.value.split('-').every((char: string) => char === char.toLowerCase());
+    const isKebabCase = control.value?.includes('-') &&
+      control.value?.split('-').length === 2 &&
+      control.value?.indexOf('-') !== 0 &&
+      control.value?.indexOf('-') !== (control.value.length - 1) &&
+      control.value?.split('-').every((char: string) => char === char.toLowerCase());
 
     const isSpaceCase = control.value?.split(' ').length === 2 &&
       control.value?.split(' ').every((word: string) => word.length) &&
