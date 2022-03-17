@@ -13,7 +13,6 @@
         <small *ngIf="form.get('username')?.errors['minlength']">Enter at least 8 symbols</small>
         <small *ngIf="form.get('username')?.errors['case']">Space Case, kebab-case, camelCase are allowed,
           no special symbols or numbers allowed</small>
-
       </div>
     </div>
 
@@ -29,6 +28,7 @@
         <small *ngIf="form.get('email')?.errors['symbols']">Only 5 symbols after @ allowed</small>
         <small *ngIf="form.get('email')?.errors['dots']">No more than 3 dots before @ allowed</small>
         <small *ngIf="form.get('email')?.errors['domain']">Only (.com, .net, .org, .co, .us) domains are allowed</small>
+
       </div>
     </div>
 
@@ -43,6 +43,9 @@
         <small *ngIf="form.get('password')?.errors['minlength']">Enter at least 5 symbols</small>
         <small *ngIf="form.get('password')?.errors['content']">Field must contain at least
           one uppercase letter, one number, one special symbol of ($ % . & ! -)</small>
+        <small *ngIf="form.errors?.['matchedValues'] && form.touched && form.dirty">
+          Password should not contain parts of a user name or email
+        </small>
       </div>
     </div>
 

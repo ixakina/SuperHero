@@ -7,6 +7,17 @@ import {LocStorKeys} from "../common/constants";
   providedIn: 'root'
 })
 export class CustomValidatorsService {
+  public matchedValues (control: AbstractControl): { [key: string]: boolean } {
+    const name = control.get('username');
+    const email = control.get('email');
+    const password = control.get('password');
+    if (name && email && password &&
+      (password.value.includes(name.value) || password.value.includes(email.value))) {
+      return {matchedValues: true}
+    }
+    return null;
+  }
+
   public searchInputSpaces(control: AbstractControl): { [key: string]: boolean } {
     if (control.value !== control.value?.trim()) {
       return {spaces: true};

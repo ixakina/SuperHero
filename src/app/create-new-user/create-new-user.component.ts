@@ -18,13 +18,15 @@ export class CreateNewUserComponent {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group({
+    this.form = this.formBuilder.group(
+      {
       username: ['', [Validators.required,
         Validators.minLength(8),
         this.customValidators.nameCase,
         Validators.pattern('^[a-zA-Z-]*$')
       ]],
       email: ['', [Validators.required,
+        Validators.email,
         this.customValidators.uniqEmail,
         this.customValidators.strictDomain,
         this.customValidators.strictSymbols,
@@ -32,7 +34,9 @@ export class CreateNewUserComponent {
       password: ['', [Validators.required,
         Validators.minLength(5),
         this.customValidators.strictContent]],
-    });
+    },
+      {validators: this.customValidators.matchedValues}
+      );
   }
 
   createUser(): void {
