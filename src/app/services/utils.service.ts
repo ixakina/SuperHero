@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {IUser} from "../common/interfaces";
 import {LocStorKeys} from "../common/constants";
 
@@ -6,9 +6,6 @@ import {LocStorKeys} from "../common/constants";
   providedIn: 'root'
 })
 export class UtilsService {
-
-  constructor() { }
-
   public setUsers(): IUser[] {
     return localStorage.getItem(LocStorKeys.USERS) ? JSON.parse(localStorage.getItem(LocStorKeys.USERS)) : [];
   }
@@ -22,7 +19,7 @@ export class UtilsService {
   }
 
   public hasSelectedHeroes(): boolean {
-  if (!this.getCurrentUserId()) return false;
+    if (!this.getCurrentUserId()) return false;
     const user: IUser = this.getUsers()
       .find((user: IUser) => user.id === +this.getCurrentUserId());
     return !!(user.selectedHeroesIds && user.selectedHeroesIds.length);

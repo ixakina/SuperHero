@@ -1,0 +1,48 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 50%;
+  min-width: 800px;
+  margin: 0 auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border: 2px rebeccapurple solid;
+  border-radius: 10px;
+}
+
+.item-description {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.item-text,
+.item-uses {
+  font-size: 2rem;
+}
+
+.item-img {
+  width: 70px;
+  height: 70px;
+}
+
+img {
+  object-fit: cover;
+  object-position: top;
+  height: 100%;
+  width: 100%;
+}
+
+.disabled {
+  background-color: #c4c1c1;
+  border: #c4c1c1;
+  color: #4f4e4e;
+}
+
+

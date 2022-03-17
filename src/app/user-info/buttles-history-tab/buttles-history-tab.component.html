@@ -1,14 +1,14 @@
 <table>
   <thead>
   <tr class="table-title table-row">
-    <th class="column-title table-item" (click)="sortByDate()">Date</th>
-    <th class="column-title table-item" (click)="sortByAlphabet('hero')">Hero name</th>
-    <th class="column-title table-item" (click)="sortByAlphabet('opponent')">Opponent name</th>
-    <th class="column-title table-item" (click)="sortByAlphabet('result')">Battle result</th>
-    </tr>
+    <th (click)="sortByDate()" class="column-title table-item">Date</th>
+    <th (click)="sortByAlphabet('hero')" class="column-title table-item">Hero name</th>
+    <th (click)="sortByAlphabet('opponent')" class="column-title table-item">Opponent name</th>
+    <th (click)="sortByAlphabet('result')" class="column-title table-item">Battle result</th>
+  </tr>
   </thead>
   <tbody>
-  <tr class="table-row" *ngFor="let buttle of buttles">
+  <tr *ngFor="let buttle of buttles" class="table-row">
     <td class="table-item">{{buttle.date | date:"medium"}}</td>
     <td class="table-item">{{buttle.hero}}</td>
     <td class="table-item">{{buttle.opponent}}</td>

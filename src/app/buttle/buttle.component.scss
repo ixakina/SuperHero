@@ -12,8 +12,14 @@
   flex-direction: column;
   max-height: 100vh;
 }
+
 .hero-pic {
-  height: 50vh;
+  height: calc((100vh - 80px) / 2);
+  flex: 0 1 auto;
+}
+
+.hero-info {
+  flex: 0 1 calc((100vh - 80px) / 2);
 }
 
 .buttle {
@@ -33,19 +39,20 @@
 
 .desc-name,
 .btn {
-  line-height: 200%;
+  line-height: 150%;
   font-size: 3rem;
   text-align: center;
 }
 
 .desc-name {
   background-color: #d0b8e7;
-  width: 80%;
+  width: 70%;
   border: 5px solid rebeccapurple;
+  border-radius: 10px;
 }
 
 .btn {
-  padding: 40px 0;
+  padding: 25px 0;
   width: 40%;
 
   &:hover {
@@ -53,14 +60,8 @@
   }
 }
 
-.loader {
-  line-height: 400%;
-  font-size: 3rem;
-  align-self: center;
-}
-
-
 .modal {
+  border-radius: 10px;
   align-self: center;
   display: flex;
   flex-direction: column;
@@ -78,6 +79,7 @@
   padding: 10px 30px;
   background: rebeccapurple;
   color: white;
+  border-radius: 10px;
 }
 
 .modal-text {
@@ -95,12 +97,25 @@
 
 .powerup {
   background-color: #c29be8;
+  border-radius: 10px;
   padding: 7px;
   font-size: 1.5rem;
   cursor: pointer;
   border: 2px solid rebeccapurple;
+
   &:hover {
     box-shadow: 0 5px 30px 0 rgba(102, 51, 153, 0.7);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: darkgrey;
+    color: #383535;
+    border: #383535;
+
+    &:hover {
+      box-shadow: none;
+    }
   }
 }
 
@@ -116,10 +131,40 @@
   color: rebeccapurple;
   font-weight: bold;
 }
+
 .list {
   display: flex;
   row-gap: 10px;
   flex-wrap: wrap;
   margin: 0 auto;
   justify-content: space-evenly;
+}
+
+.loader {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.loader-text {
+  line-height: 400%;
+  font-size: 3rem;
+  align-self: center;
+}
+
+.loader-progress {
+  height: 40px;
+  animation-name: fight;
+  animation-duration: 5000ms;
+  animation-timing-function: linear;
+  background-color: #e71c64;
+  border-radius: 20px;
+}
+
+@keyframes fight {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
 }

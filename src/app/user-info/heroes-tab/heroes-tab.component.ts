@@ -17,27 +17,30 @@ export class HeroesTabComponent implements OnInit {
     private utils: UtilsService,
     private data: HeroesDataService,
     private auth: AuthService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.drawSelectedHeroes();
   }
 
- public deleteHeroFromSelected(id: string): void {
+  public deleteHeroFromSelected(id: string): void {
     this.heroes = this.heroes.filter(hero => hero.id !== id);
 
     this.auth.users = this.auth.users.map((user: IUser) => {
-    return user.id === +this.utils.getCurrentUserId() ?
-      {...user,
-        selectedHeroesIds: user.selectedHeroesIds.filter((heroId:string) => heroId !== id)} :
-      user
+      return user.id === +this.utils.getCurrentUserId() ?
+        {
+          ...user,
+          selectedHeroesIds: user.selectedHeroesIds.filter((heroId: string) => heroId !== id)
+        } :
+        user
     });
     localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.auth.users));
   }
 
   private drawSelectedHeroes(): void {
     const user = this.utils.getUsers().find((user: IUser) => user.id === +this.utils.getCurrentUserId());
-    user.selectedHeroesIds.forEach((id:string) => this.data.getById(+id)
+    user.selectedHeroesIds.forEach((id: string) => this.data.getById(+id)
       .subscribe((hero: IHero) => this.heroes.push(hero)))
   }
 }

@@ -24,10 +24,10 @@
   font-size: 2rem;
   gap: 30px;
   max-height: 100vh;
-  }
+}
 
 .info-name {
-  font-size:  4rem;
+  font-size: 4rem;
 }
 
 .info-title {
@@ -37,6 +37,7 @@
 
 .info-item {
   line-height: 120%;
+
   &::first-letter {
     text-transform: uppercase;
   }

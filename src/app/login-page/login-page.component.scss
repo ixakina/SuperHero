@@ -17,6 +17,7 @@ input {
   height: 40px;
   padding: 5px;
   border: 2px solid rebeccapurple;
+
   &::placeholder {
     font-size: 1.5rem;
     color: darkgrey;
@@ -26,6 +27,7 @@ input {
 label {
   font-size: 1.5rem;
 }
+
 .form-control {
   display: flex;
   flex-direction: column;
@@ -47,3 +49,5 @@ label {
   padding: 20px;
   line-height: 120%;
 }
+
+

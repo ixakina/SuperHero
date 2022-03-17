@@ -2,6 +2,7 @@
   max-width: 50%;
   min-width: 600px;
   margin: 0 auto;
+  padding-bottom: 20px;
 }
 
 .search {
@@ -44,4 +45,28 @@
     background: rebeccapurple;
     color: white;
   }
+}
+
+.load-btn {
+  width: 200px;
+  margin: 20px auto 0 auto;
+
+}
+
+.message {
+  font-size: 3rem;
+  text-align: center;
+  line-height: 200%;
+  color: #e71c64;
+  font-weight: bold;
+}
+
+.hide {
+  display: none;
+}
+
+small {
+  margin: 0 0 20px 50px;
+  display: block;
+  font-size: 1.5rem;
 }

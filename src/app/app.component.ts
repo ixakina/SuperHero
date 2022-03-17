@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.auth.isAuthenticated();
+    this.auth.isAuthenticated();
   }
 
   logout() {

@@ -11,7 +11,21 @@ export interface IUser {
   token?: Date | '',
   searchHistory?: string[],
   selectedHeroesIds?: string[],
-  buttles?: IButtle[]
+  buttles?: IButtle[],
+  powerups?: {
+    shield: IPowerUp,
+    mjolnir: IPowerUp,
+    armor: IPowerUp,
+    cloak: IPowerUp,
+    ring: IPowerUp,
+    boots: IPowerUp,
+  }
+}
+
+export interface IPowerUp {
+  uses: number,
+  imgSrc: string,
+  name: string
 }
 
 export interface IButtle {
@@ -23,6 +37,7 @@ export interface IButtle {
 
 export interface IResponse {
   results: IHero[];
+  response: string
 }
 
 export interface IHero {
@@ -45,10 +60,10 @@ export interface IHero {
     publisher: string,
     alignment: string
   },
- work: {
+  work: {
     occupation: string,
     base: string
- },
+  },
   appearance: {
     gender: string,
     race: string,

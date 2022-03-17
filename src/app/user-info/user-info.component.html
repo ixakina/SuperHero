@@ -2,25 +2,28 @@
   <div class="info-wrapper">
     <nav class="info-nav">
       <ul class="nav-list">
-        <li class="nav-item btn dark"
+        <li (click)="activeTab = 'heroes'"
             [class.active]="activeTab === 'heroes'"
-            (click)="activeTab = 'heroes'"
-        >Heroes list</li>
+            class="nav-item btn dark"
+        >Heroes list
+        </li>
         <li
-          class="nav-item btn dark"
-          [class.active]="activeTab === 'buttles'"
           (click)="activeTab = 'buttles'"
-        >Battles history</li>
-        <li
+          [class.active]="activeTab === 'buttles'"
           class="nav-item btn dark"
-          [class.active]="activeTab === 'powerups'"
+        >Battles history
+        </li>
+        <li
           (click)="activeTab = 'powerups'"
-        >Powerups</li>
+          [class.active]="activeTab === 'powerups'"
+          class="nav-item btn dark"
+        >Powerups
+        </li>
       </ul>
     </nav>
     <div class="tab-info">
       <app-heroes-tab *ngIf="activeTab === 'heroes'"></app-heroes-tab>
-      <app-buttles-history-tab  *ngIf="activeTab === 'buttles'"></app-buttles-history-tab>
+      <app-buttles-history-tab *ngIf="activeTab === 'buttles'"></app-buttles-history-tab>
       <app-powerups-tab *ngIf="activeTab === 'powerups'"></app-powerups-tab>
     </div>
   </div>

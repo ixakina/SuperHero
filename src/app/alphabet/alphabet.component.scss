@@ -22,12 +22,13 @@
 .letter {
   background: #d0b8e7;
   cursor: pointer;
+
   &:hover {
     background: rebeccapurple;
   }
 }
 
-.search-filter-btn{
+.search-filter-btn {
   background: rebeccapurple;
   margin-bottom: 10px;
-  }
+}

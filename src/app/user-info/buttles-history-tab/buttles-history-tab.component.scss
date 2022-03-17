@@ -8,10 +8,10 @@ table {
 .table-title {
   font-size: 3rem;
   font-weight: bold;
-  }
+}
 
 .column-title {
-  color:white;
+  color: white;
   background: rebeccapurple url("../../../assets/sort.svg") 90% center/20px 20px no-repeat;
   cursor: pointer;
 }
@@ -21,7 +21,7 @@ table {
   padding: 0 60px 0 20px;
   line-height: 200%;
   text-align: left;
-  }
+}
 
 .table-item {
   border: 2px solid rebeccapurple;

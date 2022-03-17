@@ -3,16 +3,18 @@
     <div class="wrapper">
       <nav class="header-nav">
         <ul class="nav-list">
-          <li class="logo">Super Hero</li>
-          <li *ngIf="utils.hasSelectedHeroes()" >
-            <button [routerLink]="['/buttle']" class="btn light header-btn">Fight!</button></li>
+          <li [routerLink]="['/select-heroes']" class="logo">Super Hero</li>
+          <li *ngIf="utils.hasSelectedHeroes()">
+            <button [routerLink]="['/buttle']" class="btn light header-btn">Fight!</button>
+          </li>
           <li class="nav-controls">
             <button
-              class="btn light header-btn"
               *ngIf="utils.getCurrentUserId()"
               [routerLink]="['/user-info']"
-            >User Info</button>
-            <button class="btn light header-btn" (click)="logout()">Exit</button>
+              class="btn light header-btn"
+            >User Info
+            </button>
+            <button (click)="logout()" class="btn light header-btn">Exit</button>
           </li>
         </ul>
       </nav>
@@ -20,7 +22,7 @@
   </header>
   <main class="main">
     <div class="wrapper">
-    <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
   </main>
 </div>

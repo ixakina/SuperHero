@@ -2,22 +2,24 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {ActivatedRoute, Params} from "@angular/router";
-import {CustomValidators} from "../common/custom-validators";
+import {CustomValidatorsService} from "../services/custom-validators.service";
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit{
+export class LoginPageComponent implements OnInit {
   public form: FormGroup;
   public message: string = '';
 
-    constructor(
-      private formBuilder: FormBuilder,
-      private auth: AuthService,
-      private route: ActivatedRoute
-    ) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private customValidators: CustomValidatorsService
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
@@ -27,17 +29,20 @@ export class LoginPageComponent implements OnInit{
       }
     })
 
-      this.form = this.formBuilder.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(5)]]
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required,
+        this.customValidators.strictDomain,
+        this.customValidators.strictSymbols,
+        this.customValidators.strictDots]],
+      password: ['', [Validators.required, Validators.minLength(5), this.customValidators.strictContent]]
     });
 
   }
 
-  submit() {
+  submit(): void {
     this.auth.login(this.form.value.email, this.form.value.password);
     this.form.reset();
-   }
+  }
 
 
 }

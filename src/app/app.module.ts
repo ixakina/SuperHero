@@ -12,10 +12,10 @@ import {SelectHeroesComponent} from './select-heroes/select-heroes.component';
 import {AlphabetComponent} from './alphabet/alphabet.component';
 import {UserInfoComponent} from "./user-info/user-info.component";
 import {HeroesTabComponent} from "./user-info/heroes-tab/heroes-tab.component";
-import { HeroInfoComponent } from './hero-info/hero-info.component';
-import { ButtlesHistoryTabComponent } from './user-info/buttles-history-tab/buttles-history-tab.component';
-import { ButtleComponent } from './buttle/buttle.component';
-import { PowerupsTabComponent } from './user-info/powerups-tab/powerups-tab.component';
+import {HeroInfoComponent} from './hero-info/hero-info.component';
+import {ButtlesHistoryTabComponent} from './user-info/buttles-history-tab/buttles-history-tab.component';
+import {ButtleComponent} from './buttle/buttle.component';
+import {PowerupsTabComponent} from './user-info/powerups-tab/powerups-tab.component';
 
 
 @NgModule({

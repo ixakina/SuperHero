@@ -105,16 +105,22 @@ input.ng-valid.ng-touched {
 small {
   color: red;
   font-size: 1.2rem;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .btn {
   width: 100px;
   padding: 10px;
-  font-size: 1.5rem;
+  font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 40px;
+  border-radius: 7px;
+  &:hover {
+    background-color: #c29be8;
+  }
 }
 
 .btn.dark {
@@ -128,8 +134,9 @@ small {
 }
 
 .btn:disabled {
-  background: darkgrey;
+  background-color: darkgrey;
   color: black;
+  cursor: not-allowed;
 }
 
 .hero-card {
@@ -137,6 +144,7 @@ small {
   display: flex;
   max-height: 250px;
   border: 2px solid rebeccapurple;
+  border-radius: 10px;
 }
 
 .hero-info {

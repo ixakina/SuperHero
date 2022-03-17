@@ -11,10 +11,9 @@
         class="validation">
         <small *ngIf="form.get('username')?.errors['required']">Field "Username" can't be empty</small>
         <small *ngIf="form.get('username')?.errors['minlength']">Enter at least 8 symbols</small>
-        <small *ngIf="form.get('username')?.errors['kebabCase']">kebab-case</small>
+        <small *ngIf="form.get('username')?.errors['case']">Space Case, kebab-case, camelCase are allowed,
+          no special symbols or numbers allowed</small>
 
-        <small *ngIf="form.get('username')?.errors['kebabOrCamelOrSpaceCase']">Only kebab-case, camelCase, Space
-          Case - allowed</small>
       </div>
     </div>
 
@@ -26,14 +25,25 @@
         *ngIf="form.get('email').invalid && form.get('email').touched"
         class="validation">
         <small *ngIf="form.get('email')?.errors['required']">Field "Email" can't be empty</small>
-        <!--        <small *ngIf="form.get('email')?.errors['email']">Bad email format</small>-->
-        <small *ngIf="form.get('email')?.errors['mailFormat']">Email format does not meet requirements</small>
+        <small *ngIf="form.get('email')?.errors['uniq']">Email must be uniq</small>
+        <small *ngIf="form.get('email')?.errors['symbols']">Only 5 symbols after @ allowed</small>
+        <small *ngIf="form.get('email')?.errors['dots']">No more than 3 dots before @ allowed</small>
+        <small *ngIf="form.get('email')?.errors['domain']">Only (.com, .net, .org, .co, .us) domains are allowed</small>
       </div>
     </div>
 
     <div class="form-control">
       <label for="password">Password:</label>
       <input class="password" formControlName="password" id="password" placeholder="Enter password" type="password">
+
+      <div
+        *ngIf="form.get('password').invalid && form.get('password').touched"
+        class="validation">
+        <small *ngIf="form.get('password')?.errors['required']">Field "Password" can't be empty</small>
+        <small *ngIf="form.get('password')?.errors['minlength']">Enter at least 5 symbols</small>
+        <small *ngIf="form.get('password')?.errors['content']">Field must contain at least
+          one uppercase letter, one number, one special symbol of ($ % . & ! -)</small>
+      </div>
     </div>
 
     <div class="btn-block">

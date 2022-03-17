@@ -11,10 +11,11 @@ export class AlphabetComponent implements OnInit {
   @ViewChild('filter') searchBtn: ElementRef;
   @Output() onSelect = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
-  this.createAlphabetList();
+    this.createAlphabetList();
   }
 
   public selectLetter(letter: string) {
@@ -23,8 +24,8 @@ export class AlphabetComponent implements OnInit {
     this.onSelect.emit(letter);
   }
 
-  private createAlphabetList() {
-    for (let i = 65; i <=90; i++) {
+  private createAlphabetList(): void {
+    for (let i = 65; i <= 90; i++) {
       this.alphabet.push(String.fromCharCode(i));
     }
   }

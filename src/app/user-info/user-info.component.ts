@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-user-info',
@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class UserInfoComponent implements OnInit {
   public activeTab: string = 'heroes';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

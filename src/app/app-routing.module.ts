@@ -15,7 +15,7 @@ const routes: Routes = [
   {path: 'select-heroes', component: SelectHeroesComponent, canActivate: [AuthGuardService]},
   {path: 'user-info', component: UserInfoComponent, canActivate: [AuthGuardService]},
   {path: 'hero/:id', component: HeroInfoComponent, canActivate: [AuthGuardService]},
-  {path: 'buttle', component: ButtleComponent, canActivate: [FightGuardService]},
+  {path: 'buttle', component: ButtleComponent, canActivate: [AuthGuardService, FightGuardService]},
 ];
 
 @NgModule({
