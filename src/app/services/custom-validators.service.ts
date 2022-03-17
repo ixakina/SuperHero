@@ -15,7 +15,7 @@ export class CustomValidatorsService {
   }
 
   public uniqEmail(control: AbstractControl): { [key: string]: boolean } {
-    if (JSON.parse(localStorage.getItem(LocStorKeys.USERS)).find((user: IUser) =>
+    if (JSON.parse(localStorage.getItem(LocStorKeys.USERS))?.find((user: IUser) =>
       user.email === control.value.trim())
     ) {
       return {uniq: true};
@@ -60,13 +60,13 @@ export class CustomValidatorsService {
 
   public nameCase(control: AbstractControl): { [key: string]: boolean } {
     const value = control.value?.split('');
-    const isOneUppercaseChar = value.filter((char: string) => char !== char.toLowerCase()).length === 1;
-    const indexOfUppercaseChar = value.findIndex((char: string) => char !== char.toLowerCase());
+    const isOneUppercaseChar = value?.filter((char: string) => char !== char.toLowerCase()).length === 1;
+    const indexOfUppercaseChar = value?.findIndex((char: string) => char !== char.toLowerCase());
     const isCamelcase = isOneUppercaseChar &&
       indexOfUppercaseChar !== 0 &&
       indexOfUppercaseChar !== (value.length - 1) &&
-      !value.includes('-') &&
-      !value.includes(' ');
+      !value?.includes('-') &&
+      !value?.includes(' ');
 
     const isKebabCase = control.value?.includes('-') &&
       control.value?.split('-').length === 2 &&
