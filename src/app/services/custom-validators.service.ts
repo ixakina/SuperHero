@@ -8,7 +8,7 @@ import {LocStorKeys} from "../common/constants";
 })
 export class CustomValidatorsService {
   public searchInputSpaces(control: AbstractControl): { [key: string]: boolean } {
-    if (control.value !== control.value.trim()) {
+    if (control.value !== control.value?.trim()) {
       return {spaces: true};
     }
     return null;
@@ -16,7 +16,7 @@ export class CustomValidatorsService {
 
   public uniqEmail(control: AbstractControl): { [key: string]: boolean } {
     if (JSON.parse(localStorage.getItem(LocStorKeys.USERS))?.find((user: IUser) =>
-      user.email === control.value.trim())
+      user.email === control.value?.trim())
     ) {
       return {uniq: true};
     }
