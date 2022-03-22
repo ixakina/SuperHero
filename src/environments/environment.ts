@@ -8,7 +8,7 @@ import {Environment} from "../app/common/interfaces";
 
 export const environment: Environment= {
   production: false,
-  apiKey: '4509571742421677'
+  apiUrl:  'https://superheroapi.com/api.php/4509571742421677'
 };
 
 /*

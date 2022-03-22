@@ -1,6 +1,6 @@
 export interface Environment {
   production: boolean,
-  apiKey: string
+  apiUrl: string
 }
 
 export interface IUser {

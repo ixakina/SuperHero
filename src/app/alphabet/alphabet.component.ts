@@ -9,17 +9,14 @@ export class AlphabetComponent implements OnInit {
   public alphabet: string[] = [];
   public isOpened: boolean = false;
   @ViewChild('filter') searchBtn: ElementRef;
-  @Output() onSelect = new EventEmitter<any>();
-
-  constructor() {
-  }
+  @Output() onSelect = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.createAlphabetList();
   }
 
   public selectLetter(letter: string) {
-    this.searchBtn.nativeElement.textContent = letter;
+    this.searchBtn.nativeElement.value = letter;
     this.isOpened = !this.isOpened;
     this.onSelect.emit(letter);
   }
