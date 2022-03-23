@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IPowerUp, IUser} from "../../common/interfaces";
-import {UtilsService} from "../../services/utils.service";
+import {UtilsService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-powerups-tab',

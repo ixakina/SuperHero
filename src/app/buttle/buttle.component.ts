@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {IButtle, IHero, IPowerUp, IUser} from "../common/interfaces";
-import {UtilsService} from "../services/utils.service";
+import {Buttle, Hero, PowerUp, User} from "../common/interfaces";
+import {StorageService} from "../services/storage.service";
 import {HeroesDataService} from "../services/heroes-data.service";
 import {AuthService} from "../services/auth.service";
 import {LocStorKeys} from "../common/constants";
 import {take, timer} from "rxjs";
+import {getRandomHeroId} from "../common/utils";
 
 @Component({
   selector: 'app-buttle',
@@ -12,24 +13,24 @@ import {take, timer} from "rxjs";
   styleUrls: ['./buttle.component.scss']
 })
 export class ButtleComponent implements OnInit {
-  public hero: IHero;
-  public opponent: IHero;
-  public powerups: [string, IPowerUp][];
+  public hero: Hero;
+  public opponent: Hero;
+  public powerups: [string, PowerUp][];
   public isFight: boolean = false;
   public winner: string;
   public selectedPowerups: string[] = [];
-  private buttles: IButtle[];
+  private buttles: Buttle[];
 
   constructor(
-    private utils: UtilsService,
+    private storage: StorageService,
     private dataService: HeroesDataService,
     private auth: AuthService,
   ) {
   }
 
   ngOnInit(): void {
-    const user: IUser = this.utils.getUsers()
-      .find((user: IUser) => user.id === +this.utils.getCurrentUserId());
+    const user: User = this.utils.getUsers()
+      .find((user: User) => user.id === +this.utils.getCurrentUserId());
 
     this.powerups = Object.entries(user.powerups);
     this.buttles = user.buttles ? user.buttles : [];
@@ -68,16 +69,16 @@ export class ButtleComponent implements OnInit {
     return heroPowerups > opponentPowerups ? this.hero.name : this.opponent.name
   }
 
-  private setHero(user: IUser): void {
+  private setHero(user: User): void {
     const heroId = user.selectedHeroesIds[user.selectedHeroesIds.length - 1];
     this.dataService.getById(+heroId)
-      .subscribe((hero: IHero) => this.hero = hero);
+      .subscribe((hero: Hero) => this.hero = hero);
   }
 
   private setOpponent(): void {
-    let opponentId = this.utils.getRandomHeroId(1, 721);
+    let opponentId = getRandomHeroId(1, 721);
     this.dataService.getById(opponentId)
-      .subscribe((opponent: IHero) => {
+      .subscribe((opponent: Hero) => {
           if (Object.values(opponent?.powerstats).every((stat: string) => stat === 'null')) this.setOpponent();
           this.opponent = opponent;
         }
@@ -88,7 +89,7 @@ export class ButtleComponent implements OnInit {
     const powerupsAfterFight = this.getUpdatedPowerups();
     this.saveButtle();
 
-    this.auth.users = this.auth.users.map((user: IUser) => {
+    this.auth.users = this.auth.users.map((user: User) => {
       return user.id === +this.utils.getCurrentUserId() ?
         {...user, buttles: this.buttles, powerups: powerupsAfterFight} : user
     })
@@ -96,7 +97,7 @@ export class ButtleComponent implements OnInit {
   }
 
   private saveButtle(): void {
-    const buttle: IButtle = {
+    const buttle: Buttle = {
       date: new Date().getTime().toFixed(),
       hero: this.hero.name,
       opponent: this.opponent.name,
@@ -105,13 +106,13 @@ export class ButtleComponent implements OnInit {
     this.buttles.push(buttle);
   }
 
-  private updateUses(powerup: IPowerUp) {
+  private updateUses(powerup: PowerUp) {
     return this.selectedPowerups.includes(powerup.name) ? powerup.uses - 1 : powerup.uses;
   }
 
   private getUpdatedPowerups(): any {
-    const user: IUser = this.utils.getUsers()
-      .find((user: IUser) => user.id === +this.utils.getCurrentUserId());
+    const user: User = this.utils.getUsers()
+      .find((user: User) => user.id === +this.utils.getCurrentUserId());
 
     const updatePowerups = {
       shield: {

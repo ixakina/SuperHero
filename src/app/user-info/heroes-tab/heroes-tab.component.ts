@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {IHero, IUser} from "../../common/interfaces";
-import {UtilsService} from "../../services/utils.service";
+import {UtilsService} from "../../services/storage.service";
 import {HeroesDataService} from "../../services/heroes-data.service";
 import {AuthService} from "../../services/auth.service";
 import {LocStorKeys} from "../../common/constants";

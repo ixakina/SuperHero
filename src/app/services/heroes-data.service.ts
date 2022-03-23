@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {IHero, IResponse} from "../common/interfaces";
+import {Hero, Response} from "../common/interfaces";
 import {Observable} from "rxjs";
 
 @Injectable({
@@ -13,11 +13,11 @@ export class HeroesDataService {
     private http: HttpClient
   ) {}
 
-  public getByName(name: string): Observable<IResponse> {
-    return this.http.get<IResponse>(`${environment.apiUrl}/search/${name}`);
+  public getByName(name: string): Observable<Response> {
+    return this.http.get<Response>(`${environment.apiUrl}/search/${name}`);
   }
 
-  public getById(id: number): Observable<IHero> {
-    return this.http.get<IHero>(`${environment.apiUrl}/${id}`);
+  public getById(id: number): Observable<Hero> {
+    return this.http.get<Hero>(`${environment.apiUrl}/${id}`);
   }
 }

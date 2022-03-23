@@ -1,7 +1,14 @@
 import {Component} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CustomValidatorsService} from "../services/custom-validators.service";
+import {
+  matchedValuesValidator,
+  nameCaseValidator, strictContentValidator,
+  strictDomainValidator,
+  strictDotsValidator,
+  strictSymbolsValidator,
+  uniqEmailValidator
+} from "../common/utils";
 
 @Component({
   selector: 'app-create-new-user',
@@ -14,34 +21,37 @@ export class CreateNewUserComponent {
 
   constructor(private auth: AuthService,
               private formBuilder: FormBuilder,
-              private customValidators: CustomValidatorsService) {
+  ) {
   }
 
   ngOnInit(): void {
-    this.form = this.formBuilder.group(
-      {
-      username: ['', [Validators.required,
-        Validators.minLength(8),
-        this.customValidators.nameCase,
-        Validators.pattern('^[a-zA-Z-]*$')
-      ]],
-      email: ['', [Validators.required,
-        Validators.email,
-        this.customValidators.uniqEmail,
-        this.customValidators.strictDomain,
-        this.customValidators.strictSymbols,
-        this.customValidators.strictDots]],
-      password: ['', [Validators.required,
-        Validators.minLength(5),
-        this.customValidators.strictContent]],
-    },
-      {validators: this.customValidators.matchedValues}
-      );
+    this.initForm();
   }
 
-  createUser(): void {
+  public createUser(): void {
     this.auth.signUp(this.form.value.username, this.form.value.email, this.form.value.password);
     this.form.reset();
   }
 
+  private initForm(): void {
+    this.form = this.formBuilder.group(
+      {
+        username: ['', [Validators.required,
+          Validators.minLength(8),
+          Validators.pattern('^[a-zA-Z-]*$'),
+          nameCaseValidator
+        ]],
+        email: ['', [Validators.required,
+          Validators.email,
+          uniqEmailValidator,
+          strictDomainValidator,
+          strictSymbolsValidator,
+          strictDotsValidator]],
+        password: ['', [Validators.required,
+          Validators.minLength(5),
+          strictContentValidator]],
+      },
+      {validators: matchedValuesValidator}
+    );
+  }
 }

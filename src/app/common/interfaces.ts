@@ -3,7 +3,7 @@ export interface Environment {
   apiUrl: string
 }
 
-export interface IUser {
+export interface User {
   id: number,
   username: string,
   email: string,
@@ -11,36 +11,36 @@ export interface IUser {
   token?: Date | '',
   searchHistory?: string[],
   selectedHeroesIds?: string[],
-  buttles?: IButtle[],
+  buttles?: Buttle[],
   powerups?: {
-    shield: IPowerUp,
-    mjolnir: IPowerUp,
-    armor: IPowerUp,
-    cloak: IPowerUp,
-    ring: IPowerUp,
-    boots: IPowerUp,
+    shield: PowerUp,
+    mjolnir: PowerUp,
+    armor: PowerUp,
+    cloak: PowerUp,
+    ring: PowerUp,
+    boots: PowerUp,
   }
 }
 
-export interface IPowerUp {
+export interface PowerUp {
   uses: number,
   imgSrc: string,
   name: string
 }
 
-export interface IButtle {
+export interface Buttle {
   hero: string,
   opponent: string,
   date: string,
   result: string
 }
 
-export interface IResponse {
-  results: IHero[];
+export interface Response {
+  results: Hero[];
   response: string
 }
 
-export interface IHero {
+export interface Hero {
   id: string,
   name: string,
   powerstats: {

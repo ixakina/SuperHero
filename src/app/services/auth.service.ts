@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {IUser} from "../common/interfaces";
-import {UtilsService} from "./utils.service";
+import {User} from "../common/interfaces";
+import {StorageService} from "./storage.service";
 import {Router} from "@angular/router";
 import {LocStorKeys} from "../common/constants";
 
@@ -9,15 +9,15 @@ import {LocStorKeys} from "../common/constants";
 })
 
 export class AuthService {
-  public users: IUser[] = this.utils.setUsers();
+  public users: User[] = this.storage.getData(LocStorKeys.USERS) ? <User[]>this.storage.getData(LocStorKeys.USERS) : [];
   public currentUserId: number;
 
-  constructor(private utils: UtilsService,
+  constructor(private storage: StorageService,
               private router: Router) {
   }
 
   public signUp(username: string, email: string, password: string): void {
-    const user: IUser = {
+    const user: User = {
       username,
       email,
       password,
@@ -32,7 +32,7 @@ export class AuthService {
       }
     };
     this.users.push(user);
-    localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.users));
+    this.storage.setData(LocStorKeys.USERS, this.users);
     this.router.navigate(['/']);
   }
 
@@ -50,24 +50,24 @@ export class AuthService {
   public setToken(id: number) {
     const token = new Date((new Date().getTime() + 3600 * 1000));
     this.users = this.users.map((user) => user.id === id ? {...user, token} : user);
-    localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.users));
+    this.storage.setData(LocStorKeys.USERS, this.users);
   }
 
   private setCurrentUserId(id: number): void {
     this.currentUserId = id;
-    localStorage.setItem(LocStorKeys.CURRENT_USER_ID, JSON.stringify(this.currentUserId));
+    this.storage.setData(LocStorKeys.CURRENT_USER_ID, this.currentUserId);
   }
 
   public logout(): void {
     this.users = this.users.map((user) => user.id === this.currentUserId ? {...user, token: ''} : user);
     this.currentUserId = null;
-    localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.users));
-    localStorage.setItem(LocStorKeys.CURRENT_USER_ID, JSON.stringify(this.currentUserId));
+    this.storage.setData(LocStorKeys.USERS, this.users);
+    this.storage.setData(LocStorKeys.CURRENT_USER_ID, this.currentUserId);
   }
 
-  public isAuthenticated(): boolean {
-    const currentUserId = localStorage.getItem(LocStorKeys.CURRENT_USER_ID);
-    const loggedInUser = this.users.find((user) => user.id === +currentUserId);
+  public checkAuthorization(): boolean {
+    const currentUserId = this.storage.getData(LocStorKeys.CURRENT_USER_ID);
+    const loggedInUser = this.users.find((user) => user.id === currentUserId);
 
     if (!currentUserId || !loggedInUser) {
       this.router.navigate(['/']);

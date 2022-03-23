@@ -8,7 +8,7 @@ export enum SortType {
   DESC = 'desk'
 }
 
-export  enum SortCase {
-  ALPHABET='alphabet',
+export enum SortCase {
+  ALPHABET = 'alphabet',
   DATE = 'date'
 }

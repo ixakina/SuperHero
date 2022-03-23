@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeroesDataService} from "../services/heroes-data.service";
 import {IHero, IResponse, IUser} from "../common/interfaces";
 import {LocStorKeys} from "../common/constants";
-import {UtilsService} from "../services/utils.service";
+import {UtilsService} from "../services/storage.service";
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {debounceTime, filter, Subscription, switchMap, take} from "rxjs";
-import {CustomValidatorsService} from "../services/custom-validators.service";
+import {searchInputSpacesValidator} from "../common/utils";
 
 
 @Component({
@@ -16,7 +16,7 @@ import {CustomValidatorsService} from "../services/custom-validators.service";
 })
 export class SelectHeroesComponent implements OnInit, OnDestroy {
   public searchControl: FormControl = this.fb.control('',
-    [this.customValidators.searchInputSpaces, Validators.pattern('^[a-zA-Z]*$')]);
+    [searchInputSpacesValidator, Validators.pattern('^[a-zA-Z]*$')]);
   public heroes: IHero[] = [];
   public searchHistory: string[];
   public selectedHeroesIds: string[];
@@ -28,7 +28,6 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
               private auth: AuthService,
               private utils: UtilsService,
               private fb: FormBuilder,
-              private customValidators: CustomValidatorsService
   ) {
   }
 
