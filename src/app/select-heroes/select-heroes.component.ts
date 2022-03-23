@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeroesDataService} from "../services/heroes-data.service";
-import {IHero, IResponse, IUser} from "../common/interfaces";
+import {Hero, Response, User} from "../common/interfaces";
 import {LocStorKeys} from "../common/constants";
-import {UtilsService} from "../services/storage.service";
+import {StorageService} from "../services/storage.service";
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {debounceTime, filter, Subscription, switchMap, take} from "rxjs";
@@ -15,9 +15,8 @@ import {searchInputSpacesValidator} from "../common/utils";
   styleUrls: ['./select-heroes.component.scss']
 })
 export class SelectHeroesComponent implements OnInit, OnDestroy {
-  public searchControl: FormControl = this.fb.control('',
-    [searchInputSpacesValidator, Validators.pattern('^[a-zA-Z]*$')]);
-  public heroes: IHero[] = [];
+  public searchControl: FormControl;
+  public heroes: Hero[] = [];
   public searchHistory: string[];
   public selectedHeroesIds: string[];
   public charCode: number = 65;
@@ -26,22 +25,44 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
 
   constructor(private heroesData: HeroesDataService,
               private auth: AuthService,
-              private utils: UtilsService,
+              private storage: StorageService,
               private fb: FormBuilder,
   ) {
   }
 
   ngOnInit(): void {
-    const currentUser: IUser = this.utils.getUsers().find((user: IUser) => user.id === +this.utils.getCurrentUserId());
+    this.getInitialHeroesList();
+    this.initSearchControl();
+    this.setVariablesValues();
+    this.handleInputChanges();
+  }
+
+  private getInitialHeroesList(): void {
+    this.heroesData.getByName(String.fromCodePoint(this.charCode))
+      .subscribe((response: Response) => {
+        this.heroes = response.results.filter((hero: Hero) => hero.name[0] === String.fromCodePoint(this.charCode));
+      });
+  }
+
+  private initSearchControl(): void {
+    this.searchControl= this.fb.control('',
+      [searchInputSpacesValidator, Validators.pattern('^[a-zA-Z]*$')]);
+  }
+
+  private setVariablesValues() {
+    const currentUser: User = (<User[]>this.storage.getData(LocStorKeys.USERS))
+      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
     this.searchHistory = currentUser.searchHistory ? currentUser.searchHistory : [];
     this.selectedHeroesIds = currentUser.selectedHeroesIds ? currentUser.selectedHeroesIds : [];
+  }
 
+  private handleInputChanges (): void {
     this.subscription = this.searchControl.valueChanges
       .pipe(
         debounceTime(500),
         filter(() => !Boolean(this.searchControl.errors) && Boolean(this.searchControl.value.trim())),
         switchMap((value: string) => this.heroesData.getByName(value)))
-      .subscribe((response: IResponse) => {
+      .subscribe((response: Response) => {
         this.message = '';
         if (response.response === 'error') {
           this.message = 'Nothing found, try again...'
@@ -49,18 +70,13 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
         this.heroes = response.results;
         if (this.heroes?.length) this.saveSearchHistory(this.searchControl.value);
       })
-
-    this.heroesData.getByName(String.fromCodePoint(this.charCode))
-      .subscribe((response: IResponse) => {
-        this.heroes = response.results.filter((hero: IHero) => hero.name[0] === String.fromCodePoint(this.charCode));
-      });
   }
 
-  selectHero(id: string) {
+  public selectHero(id: string) {
     this.selectedHeroesIds.push(id);
-    this.auth.users = this.auth.users.map((user: IUser) => user.id === +this.utils.getCurrentUserId() ?
+    this.auth.users = this.auth.users.map((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID) ?
       {...user, selectedHeroesIds: this.selectedHeroesIds} : user);
-    localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.auth.users));
+    this.storage.setData(LocStorKeys.USERS, this.auth.users)
   }
 
   ngOnDestroy(): void {
@@ -71,8 +87,8 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
     if (this.charCode < 90) {
       this.charCode++;
       this.heroesData.getByName(String.fromCodePoint(this.charCode)).pipe(take(1))
-        .subscribe((response: IResponse) => {
-          const nextPartOfData = response.results.filter((hero: IHero) => hero.name[0] === String.fromCodePoint(this.charCode));
+        .subscribe((response: Response) => {
+          const nextPartOfData = response.results.filter((hero: Hero) => hero.name[0] === String.fromCodePoint(this.charCode));
           this.heroes = this.heroes.concat(nextPartOfData);
         });
     }
@@ -81,8 +97,8 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
   private saveSearchHistory(searchRequest: string) {
     if (this.searchHistory.includes(searchRequest)) return;
     this.searchHistory.push(searchRequest);
-    this.auth.users = this.auth.users.map((user: IUser) => user.id === +this.utils.getCurrentUserId() ?
+    this.auth.users = this.auth.users.map((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID) ?
       {...user, searchHistory: this.searchHistory} : user);
-    localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.auth.users));
+    this.storage.setData(LocStorKeys.USERS, this.auth.users)
   }
 }
