@@ -16,7 +16,7 @@ import {HeroInfoComponent} from './hero-info/hero-info.component';
 import {ButtlesHistoryTabComponent} from './user-info/buttles-history-tab/buttles-history-tab.component';
 import {ButtleComponent} from './buttle/buttle.component';
 import {PowerupsTabComponent} from './user-info/powerups-tab/powerups-tab.component';
-
+import { HeroCardDescriptionComponent } from './hero-card-description/hero-card-description.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import {PowerupsTabComponent} from './user-info/powerups-tab/powerups-tab.compon
     HeroInfoComponent,
     ButtlesHistoryTabComponent,
     ButtleComponent,
-    PowerupsTabComponent
+    PowerupsTabComponent,
+    HeroCardDescriptionComponent,
   ],
 
   imports: [

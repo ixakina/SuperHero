@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {IPowerUp, IUser} from "../../common/interfaces";
-import {UtilsService} from "../../services/storage.service";
+import {PowerUp, User} from "../../common/interfaces";
+import {StorageService} from "../../services/storage.service";
+import {LocStorKeys} from "../../common/constants";
 
 @Component({
   selector: 'app-powerups-tab',
@@ -8,17 +9,21 @@ import {UtilsService} from "../../services/storage.service";
   styleUrls: ['./powerups-tab.component.scss']
 })
 export class PowerupsTabComponent implements OnInit {
-  public powerups: [string, IPowerUp][];
+  public powerups: [string, PowerUp][];
 
   constructor(
-    private utils: UtilsService
+    private storage: StorageService
   ) {
   }
 
   ngOnInit(): void {
-    this.powerups = Object.entries(this.utils.getUsers()
-      .find((user: IUser) => user.id === +this.utils.getCurrentUserId()).powerups)
-      .sort((a: [string, IPowerUp], b: [string, IPowerUp]) => b[1].uses - a[1].uses)
+   this.showUsersPowerups();
+  }
+
+  private showUsersPowerups(): void {
+    this.powerups = Object.entries((<User[]>this.storage.getData(LocStorKeys.USERS))
+      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID)).powerups)
+      .sort((a: [string, PowerUp], b: [string, PowerUp]) => b[1].uses - a[1].uses)
   }
 
 }

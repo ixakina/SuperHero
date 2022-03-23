@@ -5,34 +5,13 @@
         <img alt="hero-pic" class="hero-img" src="{{hero?.image?.url}}">
       </div>
       <div class="hero-info">
-        <div class="card-description">
-          <span class="hero-name">{{hero?.name}}</span>
-          <span class="card-title">Stats:</span>
-          <ul class="hero-stats">
-            <li *ngIf="hero?.powerstats?.intelligence && hero?.powerstats?.intelligence !== 'null'" class="hero-stat">
-              intelligence: {{hero.powerstats.intelligence}}</li>
-            <li *ngIf="hero?.powerstats?.strength && hero?.powerstats?.strength !== 'null'" class="hero-stat">
-              strength: {{hero?.powerstats?.strength}}</li>
-            <li *ngIf="hero?.powerstats?.speed && hero?.powerstats?.speed !== 'null'" class="hero-stat">
-              speed: {{hero?.powerstats?.speed}}</li>
-            <li *ngIf="hero?.powerstats?.durability && hero?.powerstats?.durability !== 'null'" class="hero-stat">
-              durability: {{hero?.powerstats?.durability}}</li>
-            <li *ngIf="hero?.powerstats?.power && hero?.powerstats?.power !== 'null'" class="hero-stat">
-              power: {{hero?.powerstats?.power}}</li>
-            <li *ngIf="hero?.powerstats?.combat && hero?.powerstats?.combat !== 'null'" class="hero-stat">
-              combat: {{hero?.powerstats?.combat}}</li>
-          </ul>
-        </div>
+        <app-hero-card-description [hero]="hero"></app-hero-card-description>
       </div>
     </div>
     <div class="buttle">
       <div *ngIf="isFight" class="loader">
         <div class="loader-text">They are fighting....</div>
         <div class="loader-progress"></div>
-      </div>
-      <div *ngIf="winner" class="modal">
-        <span class="modal-text">Winner: <br> {{winner}}</span>
-        <button (click)="winner = ''" class="modal-btn">Close</button>
       </div>
       <div class="buttle-description">
         <span class="desc-name">{{hero?.name}}</span>
@@ -60,27 +39,15 @@
         <img alt="hero-pic" class="hero-img" src="{{opponent?.image?.url}}">
       </div>
       <div class="hero-info">
-        <div class="card-description">
-          <span class="hero-name">{{opponent?.name}}</span>
-          <span class="card-title">Stats:</span>
-          <ul class="hero-stats">
-            <li *ngIf="opponent?.powerstats?.intelligence && opponent?.powerstats?.intelligence !== 'null'"
-                class="hero-stat">
-              intelligence: {{opponent?.powerstats?.intelligence}}</li>
-            <li *ngIf="opponent?.powerstats?.strength && opponent?.powerstats?.strength !== 'null'" class="hero-stat">
-              strength: {{opponent?.powerstats?.strength}}</li>
-            <li *ngIf="opponent?.powerstats?.speed && opponent?.powerstats?.speed !== 'null'" class="hero-stat">
-              speed: {{opponent?.powerstats?.speed}}</li>
-            <li *ngIf="opponent?.powerstats?.durability && opponent?.powerstats?.durability !== 'null'"
-                class="hero-stat">
-              durability: {{opponent?.powerstats?.durability}}</li>
-            <li *ngIf="opponent?.powerstats?.power && opponent?.powerstats?.power !== 'null'" class="hero-stat">
-              power: {{opponent?.powerstats?.power}}</li>
-            <li *ngIf="opponent?.powerstats?.combat && opponent?.powerstats?.combat !== 'null'" class="hero-stat">
-              combat: {{opponent?.powerstats?.combat}}</li>
-          </ul>
-        </div>
+      <app-hero-card-description [hero]="opponent"></app-hero-card-description>
       </div>
     </div>
   </div>
+  <div class="modal" *ngIf="winner">
+    <div class="modal-body">
+      <span class="modal-text">Winner: <br> {{winner}}</span>
+      <button (click)="winner = ''" class="modal-btn">Close</button>
+    </div>
+  </div>
 </div>
+

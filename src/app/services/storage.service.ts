@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {User} from "../common/interfaces";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class StorageService {
 
   public getData(key: string): User[] | number {

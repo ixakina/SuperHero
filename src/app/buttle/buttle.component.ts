@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Buttle, Hero, PowerUp, User} from "../common/interfaces";
 import {StorageService} from "../services/storage.service";
 import {HeroesDataService} from "../services/heroes-data.service";
 import {AuthService} from "../services/auth.service";
 import {LocStorKeys} from "../common/constants";
-import {take, timer} from "rxjs";
+import {Subject, takeUntil, timer} from "rxjs";
 import {getRandomHeroId} from "../common/utils";
 
 @Component({
@@ -12,7 +12,7 @@ import {getRandomHeroId} from "../common/utils";
   templateUrl: './buttle.component.html',
   styleUrls: ['./buttle.component.scss']
 })
-export class ButtleComponent implements OnInit {
+export class ButtleComponent implements OnInit, OnDestroy {
   public hero: Hero;
   public opponent: Hero;
   public powerups: [string, PowerUp][];
@@ -20,6 +20,7 @@ export class ButtleComponent implements OnInit {
   public winner: string;
   public selectedPowerups: string[] = [];
   private buttles: Buttle[];
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
     private storage: StorageService,
@@ -29,20 +30,23 @@ export class ButtleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const user: User = this.utils.getUsers()
-      .find((user: User) => user.id === +this.utils.getCurrentUserId());
+    const user: User = (<User[]>this.storage.getData(LocStorKeys.USERS))
+      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
 
-    this.powerups = Object.entries(user.powerups);
-    this.buttles = user.buttles ? user.buttles : [];
-
+    this.setVariablesValues(user);
     this.setHero(user);
     this.setOpponent();
+  }
+
+  private setVariablesValues(user: User): void {
+    this.powerups = Object.entries(user.powerups);
+    this.buttles = user.battles ? user.battles : [];
   }
 
   public startFight(): void {
     this.isFight = !this.isFight;
 
-    timer(5000).pipe(take(1)).subscribe(() => {
+    timer(5000).pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.isFight = !this.isFight;
       this.winner = this.getWinner();
       this.updateUserData();
@@ -54,7 +58,6 @@ export class ButtleComponent implements OnInit {
     this.selectedPowerups.includes(powerup) ?
       this.selectedPowerups = this.selectedPowerups.filter(item => item !== powerup) :
       this.selectedPowerups.push(powerup);
-    console.log(this.selectedPowerups)
   }
 
   private getWinner(): string {
@@ -71,13 +74,13 @@ export class ButtleComponent implements OnInit {
 
   private setHero(user: User): void {
     const heroId = user.selectedHeroesIds[user.selectedHeroesIds.length - 1];
-    this.dataService.getById(+heroId)
+    this.dataService.getById(+heroId).pipe(takeUntil(this.destroy$))
       .subscribe((hero: Hero) => this.hero = hero);
   }
 
   private setOpponent(): void {
     let opponentId = getRandomHeroId(1, 721);
-    this.dataService.getById(opponentId)
+    this.dataService.getById(opponentId).pipe(takeUntil(this.destroy$))
       .subscribe((opponent: Hero) => {
           if (Object.values(opponent?.powerstats).every((stat: string) => stat === 'null')) this.setOpponent();
           this.opponent = opponent;
@@ -90,10 +93,10 @@ export class ButtleComponent implements OnInit {
     this.saveButtle();
 
     this.auth.users = this.auth.users.map((user: User) => {
-      return user.id === +this.utils.getCurrentUserId() ?
-        {...user, buttles: this.buttles, powerups: powerupsAfterFight} : user
+      return user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID) ?
+        {...user, battles: this.buttles, powerups: powerupsAfterFight} : user
     })
-    localStorage.setItem(LocStorKeys.USERS, JSON.stringify(this.auth.users));
+    this.storage.setData(LocStorKeys.USERS, this.auth.users)
   }
 
   private saveButtle(): void {
@@ -111,8 +114,8 @@ export class ButtleComponent implements OnInit {
   }
 
   private getUpdatedPowerups(): any {
-    const user: User = this.utils.getUsers()
-      .find((user: User) => user.id === +this.utils.getCurrentUserId());
+    const user: User = (<User[]>this.storage.getData(LocStorKeys.USERS))
+      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
 
     const updatePowerups = {
       shield: {
@@ -149,6 +152,11 @@ export class ButtleComponent implements OnInit {
 
     this.powerups = Object.entries(updatePowerups);
     return updatePowerups;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

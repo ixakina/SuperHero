@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./services/auth.service";
 import {Router} from "@angular/router";
-import {UtilsService} from "./services/storage.service";
+import {StorageService} from "./services/storage.service";
+import {hasSelectedHeroes} from "./common/utils";
+import {LocStorKeys} from "./common/constants";
 
 @Component({
   selector: 'app-root',
@@ -9,19 +11,28 @@ import {UtilsService} from "./services/storage.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   constructor(
     public auth: AuthService,
     private router: Router,
-    public utils: UtilsService,
+    public storage: StorageService,
   ) {
   }
 
   ngOnInit(): void {
-    this.auth.isAuthenticated();
+    this.auth.checkAuthorization();
   }
 
-  logout() {
+  public logout(): void {
     this.auth.logout();
     this.router.navigate(['/']);
+  }
+
+  public hasSelectedHeroes(): boolean {
+    return hasSelectedHeroes();
+  }
+
+  public hasCurrentUser() {
+    return !!this.storage.getData(LocStorKeys.CURRENT_USER_ID);
   }
 }

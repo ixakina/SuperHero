@@ -11,7 +11,7 @@ export const matchedValuesValidator = (control: AbstractControl): { [key: string
   const email = control.get('email');
   const password = control.get('password');
   if (name && email && password &&
-    (password.value.includes(name.value) || password.value.includes(email.value))) {
+    (password.value?.includes(name.value) || password.value?.includes(email.value))) {
     return {matchedValues: true}
   }
   return null;
@@ -92,6 +92,14 @@ export const nameCaseValidator = (control: AbstractControl): { [key: string]: bo
     return {case: true}
   }
   return null;
+}
+
+export const hasSelectedHeroes = (): boolean => {
+  const currentUserId = JSON.parse(localStorage.getItem(LocStorKeys.CURRENT_USER_ID));
+  if (!currentUserId) return false;
+  const user: User = (<User[]>JSON.parse(localStorage.getItem(LocStorKeys.USERS)))
+    .find((user: User) => user.id === currentUserId);
+  return !!(user.selectedHeroesIds && user.selectedHeroesIds.length);
 }
 
 

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {SortCase, SortType} from "../../common/constants";
-import {IButtle, IUser} from "../../common/interfaces";
-import {UtilsService} from "../../services/storage.service";
+import {LocStorKeys, SortCase, SortType} from "../../common/constants";
+import {Buttle, User} from "../../common/interfaces";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-buttles-history-tab',
@@ -9,26 +9,27 @@ import {UtilsService} from "../../services/storage.service";
   styleUrls: ['./buttles-history-tab.component.scss']
 })
 export class ButtlesHistoryTabComponent implements OnInit {
-  public user: IUser;
-  public buttles: IButtle[]
+  public user: User;
+  public buttles: Buttle[]
   private sortType: string = SortType.ASK;
   private sortCase: string = SortCase.ALPHABET;
 
   constructor(
-    private utils: UtilsService
+    private storage: StorageService
   ) {
   }
 
   ngOnInit(): void {
-    this.user = this.utils.getUsers().find((user: IUser) => user.id === +this.utils.getCurrentUserId());
-    this.buttles = this.user.buttles;
+    this.user = (<User[]>this.storage.getData(LocStorKeys.USERS))
+      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
+    this.buttles = this.user.battles;
   }
 
-  public sortByAlphabet(field: keyof IButtle) {
+  public sortByAlphabet(field: keyof Buttle) {
     this.setSortType();
     this.sortCase = SortCase.ALPHABET;
     const [increase, decrease] = this.sortType === SortType.ASK ? [1, -1] : [-1, 1];
-    this.buttles.sort((buttleA: IButtle, buttleB: IButtle) => {
+    this.buttles.sort((buttleA: Buttle, buttleB: Buttle) => {
       return buttleA[field].toLowerCase() > buttleB[field].toLowerCase()
         ? increase
         : decrease;
@@ -39,7 +40,7 @@ export class ButtlesHistoryTabComponent implements OnInit {
     this.setSortType();
     this.sortCase = SortCase.DATE;
     const [increase, decrease] = this.sortType === SortType.ASK ? [1, -1] : [-1, 1];
-    this.buttles.sort((buttleA: IButtle, buttleB: IButtle) => {
+    this.buttles.sort((buttleA: Buttle, buttleB: Buttle) => {
       const buttleADate = +buttleA.date;
       const buttleBDate = +buttleB.date;
       return buttleADate - buttleBDate > 0 ? increase : decrease;

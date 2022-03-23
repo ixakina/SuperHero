@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
-import {IHero} from "../common/interfaces";
+import {Hero} from "../common/interfaces";
 import {switchMap} from "rxjs";
 import {HeroesDataService} from "../services/heroes-data.service";
 
@@ -10,7 +10,7 @@ import {HeroesDataService} from "../services/heroes-data.service";
   styleUrls: ['./hero-info.component.scss']
 })
 export class HeroInfoComponent implements OnInit {
-  public hero: IHero;
+  public hero: Hero;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +21,6 @@ export class HeroInfoComponent implements OnInit {
   public ngOnInit(): void {
     this.route.params.pipe(
       switchMap((params: Params) => this.dataService.getById(params['id']))
-    ).subscribe((hero: IHero) => (this.hero = hero))
+    ).subscribe((hero: Hero) => (this.hero = hero))
   }
 }

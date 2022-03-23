@@ -11,7 +11,7 @@ export interface User {
   token?: Date | '',
   searchHistory?: string[],
   selectedHeroesIds?: string[],
-  buttles?: Buttle[],
+  battles?: Buttle[],
   powerups?: {
     shield: PowerUp,
     mjolnir: PowerUp,
@@ -24,7 +24,6 @@ export interface User {
 
 export interface PowerUp {
   uses: number,
-  imgSrc: string,
   name: string
 }
 

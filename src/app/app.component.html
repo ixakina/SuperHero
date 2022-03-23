@@ -4,12 +4,12 @@
       <nav class="header-nav">
         <ul class="nav-list">
           <li [routerLink]="['/select-heroes']" class="logo">Super Hero</li>
-          <li *ngIf="utils.hasSelectedHeroes()">
+          <li *ngIf="hasSelectedHeroes()">
             <button [routerLink]="['/buttle']" class="btn light header-btn">Fight!</button>
           </li>
           <li class="nav-controls">
             <button
-              *ngIf="utils.getCurrentUserId()"
+              *ngIf="hasCurrentUser()"
               [routerLink]="['/user-info']"
               class="btn light header-btn"
             >User Info

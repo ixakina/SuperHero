@@ -1,0 +1,18 @@
+<div class="card-description">
+  <span class="hero-name">{{hero?.name}}</span>
+  <span class="card-title">Stats:</span>
+  <ul class="hero-stats">
+    <li *ngIf="hero?.powerstats?.intelligence && hero?.powerstats?.intelligence !== 'null'" class="hero-stat">
+      intelligence: {{hero?.powerstats?.intelligence}}</li>
+    <li *ngIf="hero?.powerstats?.strength && hero?.powerstats?.strength !== 'null'" class="hero-stat">
+      strength: {{hero?.powerstats?.strength}}</li>
+    <li *ngIf="hero?.powerstats?.speed && hero?.powerstats?.speed !== 'null'" class="hero-stat">
+      speed: {{hero?.powerstats?.speed}}</li>
+    <li *ngIf="hero?.powerstats?.durability && hero?.powerstats?.durability !== 'null'" class="hero-stat">
+      durability: {{hero?.powerstats?.durability}}</li>
+    <li *ngIf="hero?.powerstats?.power && hero?.powerstats?.power !== 'null'" class="hero-stat">
+      power: {{hero?.powerstats?.power}}</li>
+    <li *ngIf="hero?.powerstats?.combat && hero?.powerstats?.combat !== 'null'" class="hero-stat">
+      combat: {{hero?.powerstats?.combat}}</li>
+  </ul>
+</div>

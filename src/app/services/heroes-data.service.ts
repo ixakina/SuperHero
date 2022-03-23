@@ -5,7 +5,7 @@ import {Hero, Response} from "../common/interfaces";
 import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class HeroesDataService {
 

@@ -4,19 +4,7 @@
       <img alt="hero-pic" class="hero-img" src="{{hero.image.url}}">
     </div>
     <div class="hero-info">
-      <div class="card-description">
-        <span class="hero-name">{{hero.name}}</span>
-        <span class="card-title">Stats:</span>
-        <ul class="hero-stats">
-          <li *ngIf="hero.powerstats.intelligence" class="hero-stat">
-            intelligence: {{hero.powerstats.intelligence}}</li>
-          <li *ngIf="hero.powerstats.strength" class="hero-stat">strength: {{hero.powerstats.strength}}</li>
-          <li *ngIf="hero.powerstats.speed" class="hero-stat">speed: {{hero.powerstats.speed}}</li>
-          <li *ngIf="hero.powerstats.durability" class="hero-stat">durability: {{hero.powerstats.durability}}</li>
-          <li *ngIf="hero.powerstats.power" class="hero-stat">power: {{hero.powerstats.power}}</li>
-          <li *ngIf="hero.powerstats.combat" class="hero-stat">combat: {{hero.powerstats.combat}}</li>
-        </ul>
-      </div>
+      <app-hero-card-description [hero]="hero"></app-hero-card-description>
       <div class="card-btns">
         <button
           (click)="deleteHeroFromSelected(hero.id)"
