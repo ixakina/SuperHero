@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {Hero, User} from "../common/interfaces";
 import {Subscription, switchMap} from "rxjs";
@@ -22,7 +22,8 @@ export class HeroInfoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private dataService: HeroesDataService,
     private storage: StorageService,
-    private auth: AuthService
+    private auth: AuthService,
+    private cd: ChangeDetectorRef
   ) {
   }
 
@@ -35,7 +36,10 @@ export class HeroInfoComponent implements OnInit, OnDestroy {
   private loadHeroInfo(): void {
     this.subscription = this.route.params.pipe(
       switchMap((params: Params) => this.dataService.getById(params['id']))
-    ).subscribe((hero: Hero) => (this.hero = hero));
+    ).subscribe((hero: Hero) => {
+      this.hero = hero;
+      this.cd.markForCheck();
+    });
   }
 
   public initVariablesvalues(): void {

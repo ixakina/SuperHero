@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {HeroesDataService} from "../services/heroes-data.service";
 import {Hero, Response, User} from "../common/interfaces";
 import {LocStorKeys} from "../common/constants";
@@ -28,6 +28,7 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
               private auth: AuthService,
               private storage: StorageService,
               private fb: FormBuilder,
+              private cd: ChangeDetectorRef
   ) {
   }
 
@@ -43,6 +44,7 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((response: Response) => {
         this.heroes = response.results.filter((hero: Hero) => hero.name[0] === String.fromCodePoint(this.charCode));
+        this.cd.markForCheck();
       });
   }
 
@@ -72,6 +74,7 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
         }
         this.heroes = response.results;
         if (this.heroes?.length) this.saveSearchHistory(this.searchControl.value);
+        this.cd.markForCheck();
       })
   }
 
@@ -90,6 +93,7 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
         .subscribe((response: Response) => {
           const nextPartOfData = response.results.filter((hero: Hero) => hero.name[0] === String.fromCodePoint(this.charCode));
           this.heroes = this.heroes.concat(nextPartOfData);
+          this.cd.markForCheck();
         });
     }
   }

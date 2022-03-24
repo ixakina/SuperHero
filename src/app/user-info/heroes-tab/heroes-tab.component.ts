@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Hero, User} from "../../common/interfaces";
 import {StorageService} from "../../services/storage.service";
 import {HeroesDataService} from "../../services/heroes-data.service";
@@ -19,7 +19,8 @@ export class HeroesTabComponent implements OnInit {
   constructor(
     private storage: StorageService,
     private data: HeroesDataService,
-    private auth: AuthService
+    private auth: AuthService,
+    private cd: ChangeDetectorRef
   ) {
   }
 
@@ -33,7 +34,10 @@ export class HeroesTabComponent implements OnInit {
       .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
     if (this.user.selectedHeroesIds) {
       this.user.selectedHeroesIds.forEach((id: string) => this.data.getById(+id)
-        .subscribe((hero: Hero) => this.heroes.push(hero)));
+        .subscribe((hero: Hero) => {
+          this.heroes.push(hero);
+          this.cd.markForCheck();
+        }));
     }
 }
 

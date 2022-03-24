@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Battle, Hero, PowerUp, User} from "../common/interfaces";
 import {StorageService} from "../services/storage.service";
 import {HeroesDataService} from "../services/heroes-data.service";
@@ -27,6 +27,7 @@ export class ButtleComponent implements OnInit, OnDestroy {
     private storage: StorageService,
     private dataService: HeroesDataService,
     private auth: AuthService,
+    private cd: ChangeDetectorRef
   ) {
   }
 
@@ -52,6 +53,7 @@ export class ButtleComponent implements OnInit, OnDestroy {
       this.winner = this.getWinner();
       this.updateUserData();
       this.selectedPowerups = [];
+      this.cd.markForCheck();
     })
   }
 
@@ -76,7 +78,10 @@ export class ButtleComponent implements OnInit, OnDestroy {
   private setHero(user: User): void {
     const heroId = user.heroToFight || user.selectedHeroesIds[user.selectedHeroesIds.length - 1];
     this.dataService.getById(+heroId).pipe(takeUntil(this.destroy$))
-      .subscribe((hero: Hero) => this.hero = hero);
+      .subscribe((hero: Hero) => {
+        this.hero = hero;
+        this.cd.markForCheck();
+      });
   }
 
   private setOpponent(): void {
@@ -85,6 +90,7 @@ export class ButtleComponent implements OnInit, OnDestroy {
       .subscribe((opponent: Hero) => {
           if (Object.values(opponent?.powerstats).every((stat: string) => stat === 'null')) this.setOpponent();
           this.opponent = opponent;
+          this.cd.markForCheck();
         }
       );
   }
