@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PowerUp, User} from "../../common/interfaces";
 import {StorageService} from "../../services/storage.service";
-import {LocStorKeys} from "../../common/constants";
+import {LocStorKeys, usersPowerupsInfo} from "../../common/constants";
 
 @Component({
   selector: 'app-powerups-tab',
@@ -9,7 +9,8 @@ import {LocStorKeys} from "../../common/constants";
   styleUrls: ['./powerups-tab.component.scss']
 })
 export class PowerupsTabComponent implements OnInit {
-  public powerups: [string, PowerUp][];
+  public powerups: PowerUp[];
+  public powerupsInfo = usersPowerupsInfo;
 
   constructor(
     private storage: StorageService
@@ -17,13 +18,19 @@ export class PowerupsTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.showUsersPowerups();
+    this.showUsersPowerups();
+  }
+
+  public getImgSrc(name: string) {
+    return this.powerupsInfo.find(item => item.name === name).imgSrc;
   }
 
   private showUsersPowerups(): void {
-    this.powerups = Object.entries((<User[]>this.storage.getData(LocStorKeys.USERS))
-      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID)).powerups)
-      .sort((a: [string, PowerUp], b: [string, PowerUp]) => b[1].uses - a[1].uses)
+    this.powerups = (<User[]>this.storage.getData(LocStorKeys.USERS))
+      .find((user: User) =>
+        user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID))
+      .powerups
+      .sort((a: PowerUp, b: PowerUp) => b.uses - a.uses)
   }
 
 }

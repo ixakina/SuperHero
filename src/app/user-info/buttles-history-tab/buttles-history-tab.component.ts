@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LocStorKeys, SortCase, SortType} from "../../common/constants";
-import {Buttle, User} from "../../common/interfaces";
+import {Battle, User} from "../../common/interfaces";
 import {StorageService} from "../../services/storage.service";
 
 @Component({
@@ -10,7 +10,7 @@ import {StorageService} from "../../services/storage.service";
 })
 export class ButtlesHistoryTabComponent implements OnInit {
   public user: User;
-  public buttles: Buttle[]
+  public buttles: Battle[]
   private sortType: string = SortType.ASK;
   private sortCase: string = SortCase.ALPHABET;
 
@@ -25,11 +25,11 @@ export class ButtlesHistoryTabComponent implements OnInit {
     this.buttles = this.user.battles;
   }
 
-  public sortByAlphabet(field: keyof Buttle) {
+  public sortByAlphabet(field: keyof Battle) {
     this.setSortType();
     this.sortCase = SortCase.ALPHABET;
     const [increase, decrease] = this.sortType === SortType.ASK ? [1, -1] : [-1, 1];
-    this.buttles.sort((buttleA: Buttle, buttleB: Buttle) => {
+    this.buttles.sort((buttleA: Battle, buttleB: Battle) => {
       return buttleA[field].toLowerCase() > buttleB[field].toLowerCase()
         ? increase
         : decrease;
@@ -40,7 +40,7 @@ export class ButtlesHistoryTabComponent implements OnInit {
     this.setSortType();
     this.sortCase = SortCase.DATE;
     const [increase, decrease] = this.sortType === SortType.ASK ? [1, -1] : [-1, 1];
-    this.buttles.sort((buttleA: Buttle, buttleB: Buttle) => {
+    this.buttles.sort((buttleA: Battle, buttleB: Battle) => {
       const buttleADate = +buttleA.date;
       const buttleBDate = +buttleB.date;
       return buttleADate - buttleBDate > 0 ? increase : decrease;

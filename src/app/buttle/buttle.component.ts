@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Buttle, Hero, PowerUp, User} from "../common/interfaces";
+import {Battle, Hero, PowerUp, User} from "../common/interfaces";
 import {StorageService} from "../services/storage.service";
 import {HeroesDataService} from "../services/heroes-data.service";
 import {AuthService} from "../services/auth.service";
@@ -15,11 +15,11 @@ import {getRandomHeroId} from "../common/utils";
 export class ButtleComponent implements OnInit, OnDestroy {
   public hero: Hero;
   public opponent: Hero;
-  public powerups: [string, PowerUp][];
+  public powerups: PowerUp[];
   public isFight: boolean = false;
   public winner: string;
   public selectedPowerups: string[] = [];
-  private buttles: Buttle[];
+  private buttles: Battle[];
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -39,7 +39,7 @@ export class ButtleComponent implements OnInit, OnDestroy {
   }
 
   private setVariablesValues(user: User): void {
-    this.powerups = Object.entries(user.powerups);
+    this.powerups = user.powerups;
     this.buttles = user.battles ? user.battles : [];
   }
 
@@ -89,18 +89,18 @@ export class ButtleComponent implements OnInit, OnDestroy {
   }
 
   private updateUserData(): void {
-    const powerupsAfterFight = this.getUpdatedPowerups();
     this.saveButtle();
+    this.updatePowerups();
 
     this.auth.users = this.auth.users.map((user: User) => {
       return user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID) ?
-        {...user, battles: this.buttles, powerups: powerupsAfterFight} : user
+        {...user, battles: this.buttles, powerups: this.powerups} : user
     })
     this.storage.setData(LocStorKeys.USERS, this.auth.users)
   }
 
   private saveButtle(): void {
-    const buttle: Buttle = {
+    const buttle: Battle = {
       date: new Date().getTime().toFixed(),
       hero: this.hero.name,
       opponent: this.opponent.name,
@@ -113,45 +113,8 @@ export class ButtleComponent implements OnInit, OnDestroy {
     return this.selectedPowerups.includes(powerup.name) ? powerup.uses - 1 : powerup.uses;
   }
 
-  private getUpdatedPowerups(): any {
-    const user: User = (<User[]>this.storage.getData(LocStorKeys.USERS))
-      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
-
-    const updatePowerups = {
-      shield: {
-        uses: this.updateUses(user.powerups.shield),
-        imgSrc: '../../../assets/captain_america.png',
-        name: 'Captain America shield'
-      },
-      mjolnir: {
-        uses: this.updateUses(user.powerups.mjolnir),
-        imgSrc: '../../../assets/Mjolnir.webp',
-        name: 'Mjolnir'
-      },
-      armor: {
-        uses: this.updateUses(user.powerups.armor),
-        imgSrc: './../../assets/iron.png',
-        name: 'Ironman nano armor'
-      },
-      cloak: {
-        uses: this.updateUses(user.powerups.cloak),
-        imgSrc: '../../../assets/cloak.png',
-        name: 'Dr. Strange\'s cloak'
-      },
-      ring: {
-        uses: this.updateUses(user.powerups.ring),
-        imgSrc: '../../../assets/green.webp',
-        name: 'Green lantern\'s ring'
-      },
-      boots: {
-        uses: this.updateUses(user.powerups.boots),
-        imgSrc: '../../../assets/flash.webp',
-        name: 'Flash boots'
-      }
-    }
-
-    this.powerups = Object.entries(updatePowerups);
-    return updatePowerups;
+  private updatePowerups(): any {
+    this.powerups = this.powerups.map((powerup: PowerUp) => ({...powerup, uses: this.updateUses(powerup)}));
   }
 
   ngOnDestroy(): void {

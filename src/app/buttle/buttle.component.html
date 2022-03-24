@@ -18,6 +18,7 @@
         <button
           (click)="startFight()"
           class="btn dark"
+          [disabled]="isFight"
         >START!
         </button>
         <span class="desc-name">{{opponent?.name}}</span>
@@ -25,12 +26,12 @@
       <div class="powerups">
         <h3 class="list-title">powerups</h3>
         <div class="list">
-          <button (click)="selectPowerup(powerup[1].name)"
+          <button (click)="selectPowerup(powerup.name)"
                   *ngFor="let powerup of powerups"
-                  [class.selected]="selectedPowerups.includes(powerup[1].name)"
-                  [disabled]="powerup[1].uses === 0"
+                  [class.selected]="selectedPowerups.includes(powerup.name)"
+                  [disabled]="powerup.uses === 0 || isFight"
                   class="powerup"
-          >{{powerup[1].name}}</button>
+          >{{powerup.name}}</button>
         </div>
       </div>
     </div>

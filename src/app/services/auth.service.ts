@@ -22,14 +22,14 @@ export class AuthService {
       email,
       password,
       id: this.users.length ? this.users.length + 1 : 1,
-      powerups: {
-        shield: {uses: 5, imgSrc: '../../../assets/captain_america.png', name: 'Captain America shield'},
-        mjolnir: {uses: 5, imgSrc: '../../../assets/Mjolnir.webp', name: 'Mjolnir'},
-        armor: {uses: 5, imgSrc: './../../assets/iron.png', name: 'Ironman nano armor'},
-        cloak: {uses: 5, imgSrc: '../../../assets/cloak.png', name: 'Dr. Strange\'s cloak'},
-        ring: {uses: 5, imgSrc: '../../../assets/green.webp', name: 'Green lantern\'s ring'},
-        boots: {uses: 5, imgSrc: '../../../assets/flash.webp', name: 'Flash boots'}
-      }
+      powerups: [
+        {uses: 5, name: 'Captain America shield'},
+        {uses: 5, name: 'Mjolnir'},
+        {uses: 5, name: 'Ironman nano armor'},
+        {uses: 5, name: 'Dr. Strange\'s cloak'},
+        {uses: 5, name: 'Green lantern\'s ring'},
+        {uses: 5, name: 'Flash boots'}
+      ]
     };
     this.users.push(user);
     this.storage.setData(LocStorKeys.USERS, this.users);

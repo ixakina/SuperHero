@@ -1,12 +1,12 @@
 <ul class="list">
-  <li *ngFor="let item of powerups" [class.disabled]="item[1].uses === 0" class="item">
+  <li *ngFor="let item of powerups" [class.disabled]="item.uses === 0" class="item">
     <div class="item-description">
       <div class="item-img">
-        <img alt="picture" src="{{item[1].imgSrc}}">
+        <img alt="picture" src="{{getImgSrc(item.name)}}">
       </div>
-      <div class="item-text"> {{item[1].name}} (durability +10)
+      <div class="item-text"> {{item.name}} (durability +10)
       </div>
     </div>
-    <div class="item-uses">uses left: {{item[1].uses}}</div>
+    <div class="item-uses">uses left: {{item.uses}}</div>
   </li>
 </ul>

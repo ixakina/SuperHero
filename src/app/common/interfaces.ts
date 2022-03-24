@@ -11,15 +11,8 @@ export interface User {
   token?: Date | '',
   searchHistory?: string[],
   selectedHeroesIds?: string[],
-  battles?: Buttle[],
-  powerups?: {
-    shield: PowerUp,
-    mjolnir: PowerUp,
-    armor: PowerUp,
-    cloak: PowerUp,
-    ring: PowerUp,
-    boots: PowerUp,
-  }
+  battles?: Battle[],
+  powerups?: PowerUp[];
 }
 
 export interface PowerUp {
@@ -27,7 +20,7 @@ export interface PowerUp {
   name: string
 }
 
-export interface Buttle {
+export interface Battle {
   hero: string,
   opponent: string,
   date: string,

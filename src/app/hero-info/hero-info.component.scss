@@ -6,7 +6,7 @@
 }
 
 .hero-pic {
-  flex: 0 1 30%;
+  //flex: 0 1 30%;
   align-self: flex-start;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .hero-info {
-  flex: 1 1 auto;
+  //flex: 1 1 auto;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: flex-start;
@@ -54,4 +54,10 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.user-info-btn {
+  margin: 30px auto 0 auto;
+  width: 40%;
+  text-align: center;
 }
