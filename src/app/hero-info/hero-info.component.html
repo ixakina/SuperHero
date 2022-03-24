@@ -5,7 +5,7 @@
       <button
         class="btn dark user-info-btn"
         (click)="selectHero()"
-        [disabled]="selectedHeroesIds.includes(hero?.id)"
+        [disabled]="selectedHeroesIds?.includes(hero?.id)"
       >select</button>
     </div>
     <div class="hero-info">

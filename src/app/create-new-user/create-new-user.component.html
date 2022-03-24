@@ -6,7 +6,6 @@
       <label for="username">Username</label>
       <input class="username" formControlName="username" id="username" placeholder="Enter username" type="text">
 
-      <div>{{form.get('username')?.errors | json}}</div>
       <div
         *ngIf="form.get('username').invalid && form.get('username').touched"
         class="validation">
@@ -24,6 +23,7 @@
       <div
         *ngIf="form.get('email').invalid && form.get('email').touched"
         class="validation">
+
         <small *ngIf="form.get('email')?.errors['required']">Field "Email" can't be empty</small>
         <small *ngIf="form.get('email')?.errors['uniq']">Email must be uniq</small>
         <small *ngIf="form.get('email')?.errors['symbols']">Only 5 symbols after @ allowed</small>

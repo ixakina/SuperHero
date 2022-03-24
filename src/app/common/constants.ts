@@ -21,4 +21,3 @@ export const usersPowerupsInfo = [
   {name: 'Green lantern\'s ring', imgSrc: '../../../assets/green.webp'},
   {name: 'Flash boots', imgSrc: '../../../assets/flash.webp'},
 ]
-

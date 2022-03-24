@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Hero, User} from "../../common/interfaces";
 import {StorageService} from "../../services/storage.service";
 import {HeroesDataService} from "../../services/heroes-data.service";
@@ -8,12 +8,13 @@ import {LocStorKeys} from "../../common/constants";
 @Component({
   selector: 'app-heroes-tab',
   templateUrl: './heroes-tab.component.html',
-  styleUrls: ['./heroes-tab.component.scss']
+  styleUrls: ['./heroes-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroesTabComponent implements OnInit {
   public heroes: Hero[] = [];
   public heroForFight: string;
-  private user: User;
+  public user: User;
 
   constructor(
     private storage: StorageService,
@@ -28,22 +29,23 @@ export class HeroesTabComponent implements OnInit {
   }
 
   private drawSelectedHeroes() {
-   this.user = (<User[]>this.storage.getData(LocStorKeys.USERS))
+    this.user = (<User[]>this.storage.getData(LocStorKeys.USERS))
       .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
-
-   this.user.selectedHeroesIds.forEach((id: string) => this.data.getById(+id)
-      .subscribe((hero: Hero) => this.heroes.push(hero)));
-  }
+    if (this.user.selectedHeroesIds) {
+      this.user.selectedHeroesIds.forEach((id: string) => this.data.getById(+id)
+        .subscribe((hero: Hero) => this.heroes.push(hero)));
+    }
+}
 
   private setHeroToFight(): void {
     this.heroForFight = this.user.heroToFight ?
-      this. user.heroToFight :
-      this.user.selectedHeroesIds[this.user.selectedHeroesIds.length-1];
+      this.user.heroToFight :
+      this.user.selectedHeroesIds[this.user.selectedHeroesIds.length - 1];
     this.saveData();
   }
 
   private saveData(): void {
-    this.auth.users = this.auth.users.map((user:User) => user.id === this.user.id ?
+    this.auth.users = this.auth.users.map((user: User) => user.id === this.user.id ?
       {...user, heroToFight: this.heroForFight} : user);
     this.storage.setData(LocStorKeys.USERS, this.auth.users);
   }
@@ -54,14 +56,15 @@ export class HeroesTabComponent implements OnInit {
       return user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID) ?
         {
           ...user,
-          selectedHeroesIds: user.selectedHeroesIds.filter((heroId: string) => heroId !== id)
+          selectedHeroesIds: user.selectedHeroesIds.filter((heroId: string) => heroId !== id),
+          heroToFight: this.heroForFight
         } :
         user
     });
-    this.storage.setData(LocStorKeys.USERS, this.auth.users)
+    this.storage.setData(LocStorKeys.USERS, this.auth.users);
   }
 
-  selectHeroToFight(id: string) {
+  public selectHeroToFight(id: string) {
     this.heroForFight = id;
     this.saveData();
   }

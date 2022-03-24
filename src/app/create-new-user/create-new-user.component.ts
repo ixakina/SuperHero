@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {
@@ -13,10 +13,10 @@ import {
 @Component({
   selector: 'app-create-new-user',
   templateUrl: './create-new-user.component.html',
-  styleUrls: ['./create-new-user.component.scss']
+  styleUrls: ['./create-new-user.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateNewUserComponent {
-
   public form: FormGroup;
 
   constructor(private auth: AuthService,

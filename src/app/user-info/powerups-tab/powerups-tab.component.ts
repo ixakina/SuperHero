@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {PowerUp, User} from "../../common/interfaces";
 import {StorageService} from "../../services/storage.service";
 import {LocStorKeys, usersPowerupsInfo} from "../../common/constants";
@@ -6,7 +6,8 @@ import {LocStorKeys, usersPowerupsInfo} from "../../common/constants";
 @Component({
   selector: 'app-powerups-tab',
   templateUrl: './powerups-tab.component.html',
-  styleUrls: ['./powerups-tab.component.scss']
+  styleUrls: ['./powerups-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PowerupsTabComponent implements OnInit {
   public powerups: PowerUp[];

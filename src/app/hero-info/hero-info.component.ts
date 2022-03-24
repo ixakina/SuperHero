@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {Hero, User} from "../common/interfaces";
 import {Subscription, switchMap} from "rxjs";
@@ -10,7 +10,8 @@ import {AuthService} from "../services/auth.service";
 @Component({
   selector: 'app-hero-info',
   templateUrl: './hero-info.component.html',
-  styleUrls: ['./hero-info.component.scss']
+  styleUrls: ['./hero-info.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroInfoComponent implements OnInit, OnDestroy {
   public hero: Hero;

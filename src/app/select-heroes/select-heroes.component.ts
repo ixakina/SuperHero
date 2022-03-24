@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {HeroesDataService} from "../services/heroes-data.service";
 import {Hero, Response, User} from "../common/interfaces";
 import {LocStorKeys} from "../common/constants";
@@ -12,7 +12,8 @@ import {searchInputSpacesValidator} from "../common/utils";
 @Component({
   selector: 'app-select-heroes',
   templateUrl: './select-heroes.component.html',
-  styleUrls: ['./select-heroes.component.scss']
+  styleUrls: ['./select-heroes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectHeroesComponent implements OnInit, OnDestroy {
   public searchControl: FormControl;

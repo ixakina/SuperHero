@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Battle, Hero, PowerUp, User} from "../common/interfaces";
 import {StorageService} from "../services/storage.service";
 import {HeroesDataService} from "../services/heroes-data.service";
@@ -10,7 +10,8 @@ import {getRandomHeroId} from "../common/utils";
 @Component({
   selector: 'app-buttle',
   templateUrl: './buttle.component.html',
-  styleUrls: ['./buttle.component.scss']
+  styleUrls: ['./buttle.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtleComponent implements OnInit, OnDestroy {
   public hero: Hero;

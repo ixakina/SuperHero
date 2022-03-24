@@ -1,9 +1,10 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-alphabet',
   templateUrl: './alphabet.component.html',
-  styleUrls: ['./alphabet.component.scss']
+  styleUrls: ['./alphabet.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlphabetComponent implements OnInit {
   public alphabet: string[] = [];

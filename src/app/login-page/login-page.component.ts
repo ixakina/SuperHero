@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../services/auth.service";
 import {ActivatedRoute, Params} from "@angular/router";
@@ -13,7 +13,8 @@ import {Subscription} from "rxjs";
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  styleUrls: ['./login-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
   public form: FormGroup;

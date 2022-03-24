@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {LocStorKeys, SortCase, SortType} from "../../common/constants";
 import {Battle, User} from "../../common/interfaces";
 import {StorageService} from "../../services/storage.service";
@@ -6,7 +6,8 @@ import {StorageService} from "../../services/storage.service";
 @Component({
   selector: 'app-buttles-history-tab',
   templateUrl: './buttles-history-tab.component.html',
-  styleUrls: ['./buttles-history-tab.component.scss']
+  styleUrls: ['./buttles-history-tab.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtlesHistoryTabComponent implements OnInit {
   public user: User;
