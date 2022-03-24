@@ -38,7 +38,7 @@ export class CreateNewUserComponent {
       {
         username: ['', [Validators.required,
           Validators.minLength(8),
-          Validators.pattern('^[a-zA-Z-]*$'),
+          Validators.pattern('^[a-zA-Z- ]*$'),
           nameCaseValidator
         ]],
         email: ['', [Validators.required,

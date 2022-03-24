@@ -5,7 +5,7 @@ import {LocStorKeys} from "../common/constants";
 import {StorageService} from "../services/storage.service";
 import {AuthService} from "../services/auth.service";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {debounceTime, filter, Subscription, switchMap, take} from "rxjs";
+import {debounceTime, filter, Subject, switchMap, takeUntil} from "rxjs";
 import {searchInputSpacesValidator} from "../common/utils";
 
 
@@ -21,7 +21,7 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
   public selectedHeroesIds: string[];
   public charCode: number = 65;
   public message: string
-  private subscription: Subscription;
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private heroesData: HeroesDataService,
               private auth: AuthService,
@@ -39,13 +39,14 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
 
   private getInitialHeroesList(): void {
     this.heroesData.getByName(String.fromCodePoint(this.charCode))
+      .pipe(takeUntil(this.destroy$))
       .subscribe((response: Response) => {
         this.heroes = response.results.filter((hero: Hero) => hero.name[0] === String.fromCodePoint(this.charCode));
       });
   }
 
   private initSearchControl(): void {
-    this.searchControl= this.fb.control('',
+    this.searchControl = this.fb.control('',
       [searchInputSpacesValidator, Validators.pattern('^[a-zA-Z]*$')]);
   }
 
@@ -56,12 +57,13 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
     this.selectedHeroesIds = currentUser.selectedHeroesIds ? currentUser.selectedHeroesIds : [];
   }
 
-  private handleInputChanges (): void {
-    this.subscription = this.searchControl.valueChanges
+  private handleInputChanges(): void {
+    this.searchControl.valueChanges
       .pipe(
         debounceTime(500),
         filter(() => !Boolean(this.searchControl.errors) && Boolean(this.searchControl.value.trim())),
-        switchMap((value: string) => this.heroesData.getByName(value)))
+        switchMap((value: string) => this.heroesData.getByName(value)),
+        takeUntil(this.destroy$))
       .subscribe((response: Response) => {
         this.message = '';
         if (response.response === 'error') {
@@ -79,14 +81,11 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
     this.storage.setData(LocStorKeys.USERS, this.auth.users)
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
   public showMoreHeroes(): void {
     if (this.charCode < 90) {
       this.charCode++;
-      this.heroesData.getByName(String.fromCodePoint(this.charCode)).pipe(take(1))
+      this.heroesData.getByName(String.fromCodePoint(this.charCode))
+        .pipe(takeUntil(this.destroy$))
         .subscribe((response: Response) => {
           const nextPartOfData = response.results.filter((hero: Hero) => hero.name[0] === String.fromCodePoint(this.charCode));
           this.heroes = this.heroes.concat(nextPartOfData);
@@ -100,5 +99,10 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
     this.auth.users = this.auth.users.map((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID) ?
       {...user, searchHistory: this.searchHistory} : user);
     this.storage.setData(LocStorKeys.USERS, this.auth.users)
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

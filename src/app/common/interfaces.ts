@@ -11,6 +11,7 @@ export interface User {
   token?: Date | '',
   searchHistory?: string[],
   selectedHeroesIds?: string[],
+  heroToFight?: string,
   battles?: Battle[],
   powerups?: PowerUp[];
 }

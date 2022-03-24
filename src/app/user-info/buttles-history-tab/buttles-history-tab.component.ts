@@ -10,7 +10,7 @@ import {StorageService} from "../../services/storage.service";
 })
 export class ButtlesHistoryTabComponent implements OnInit {
   public user: User;
-  public buttles: Battle[]
+  public battles: Battle[]
   private sortType: string = SortType.ASK;
   private sortCase: string = SortCase.ALPHABET;
 
@@ -20,16 +20,20 @@ export class ButtlesHistoryTabComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setVariablesvalues();
+  }
+
+  private setVariablesvalues(): void {
     this.user = (<User[]>this.storage.getData(LocStorKeys.USERS))
       .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
-    this.buttles = this.user.battles;
+    this.battles = this.user.battles;
   }
 
   public sortByAlphabet(field: keyof Battle) {
     this.setSortType();
     this.sortCase = SortCase.ALPHABET;
     const [increase, decrease] = this.sortType === SortType.ASK ? [1, -1] : [-1, 1];
-    this.buttles.sort((buttleA: Battle, buttleB: Battle) => {
+    this.battles.sort((buttleA: Battle, buttleB: Battle) => {
       return buttleA[field].toLowerCase() > buttleB[field].toLowerCase()
         ? increase
         : decrease;
@@ -40,7 +44,7 @@ export class ButtlesHistoryTabComponent implements OnInit {
     this.setSortType();
     this.sortCase = SortCase.DATE;
     const [increase, decrease] = this.sortType === SortType.ASK ? [1, -1] : [-1, 1];
-    this.buttles.sort((buttleA: Battle, buttleB: Battle) => {
+    this.battles.sort((buttleA: Battle, buttleB: Battle) => {
       const buttleADate = +buttleA.date;
       const buttleBDate = +buttleB.date;
       return buttleADate - buttleBDate > 0 ? increase : decrease;

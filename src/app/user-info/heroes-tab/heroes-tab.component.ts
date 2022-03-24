@@ -12,6 +12,8 @@ import {LocStorKeys} from "../../common/constants";
 })
 export class HeroesTabComponent implements OnInit {
   public heroes: Hero[] = [];
+  public heroForFight: string;
+  private user: User;
 
   constructor(
     private storage: StorageService,
@@ -22,6 +24,28 @@ export class HeroesTabComponent implements OnInit {
 
   ngOnInit(): void {
     this.drawSelectedHeroes();
+    this.setHeroToFight();
+  }
+
+  private drawSelectedHeroes() {
+   this.user = (<User[]>this.storage.getData(LocStorKeys.USERS))
+      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
+
+   this.user.selectedHeroesIds.forEach((id: string) => this.data.getById(+id)
+      .subscribe((hero: Hero) => this.heroes.push(hero)));
+  }
+
+  private setHeroToFight(): void {
+    this.heroForFight = this.user.heroToFight ?
+      this. user.heroToFight :
+      this.user.selectedHeroesIds[this.user.selectedHeroesIds.length-1];
+    this.saveData();
+  }
+
+  private saveData(): void {
+    this.auth.users = this.auth.users.map((user:User) => user.id === this.user.id ?
+      {...user, heroToFight: this.heroForFight} : user);
+    this.storage.setData(LocStorKeys.USERS, this.auth.users);
   }
 
   public deleteHeroFromSelected(id: string): void {
@@ -37,10 +61,8 @@ export class HeroesTabComponent implements OnInit {
     this.storage.setData(LocStorKeys.USERS, this.auth.users)
   }
 
-  private drawSelectedHeroes() {
-    const user: User = (<User[]>this.storage.getData(LocStorKeys.USERS))
-      .find((user: User) => user.id === this.storage.getData(LocStorKeys.CURRENT_USER_ID));
-    user.selectedHeroesIds.forEach((id: string) => this.data.getById(+id)
-      .subscribe((hero: Hero) => this.heroes.push(hero)))
+  selectHeroToFight(id: string) {
+    this.heroForFight = id;
+    this.saveData();
   }
 }

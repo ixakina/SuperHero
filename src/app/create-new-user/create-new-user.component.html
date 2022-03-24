@@ -6,6 +6,7 @@
       <label for="username">Username</label>
       <input class="username" formControlName="username" id="username" placeholder="Enter username" type="text">
 
+      <div>{{form.get('username')?.errors | json}}</div>
       <div
         *ngIf="form.get('username').invalid && form.get('username').touched"
         class="validation">

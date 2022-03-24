@@ -14,6 +14,24 @@
   bottom: 20px;
   font-size: 2rem;
   width: 150px;
-
 }
 
+.card-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  align-items: end;
+}
+
+.controls-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.fight-btn {
+  width: 100%;
+}
+.btn.chosen {
+  background-color: #e00653;
+}

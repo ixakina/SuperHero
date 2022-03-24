@@ -7,14 +7,22 @@
       <app-hero-card-description [hero]="hero"></app-hero-card-description>
       <div class="card-btns">
         <button
-          (click)="deleteHeroFromSelected(hero.id)"
-          class="btn dark card-btn">delete
+          class="btn dark fight-btn"
+          [class.chosen]="hero.id === heroForFight"
+        (click)="selectHeroToFight(hero.id)">
+          {{hero.id === heroForFight ? 'chosen to fight' : 'choose to fight' }}
         </button>
-        <button
-          [routerLink]="['/hero', hero.id]"
-          class="btn dark card-btn"
-        >view
-        </button>
+        <div class="controls-wrapper">
+          <button
+            (click)="deleteHeroFromSelected(hero.id)"
+            class="btn dark card-btn">delete
+          </button>
+          <button
+            [routerLink]="['/hero', hero.id]"
+            class="btn dark card-btn"
+          >view
+          </button>
+        </div>
       </div>
     </div>
   </li>

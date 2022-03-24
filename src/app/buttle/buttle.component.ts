@@ -73,7 +73,7 @@ export class ButtleComponent implements OnInit, OnDestroy {
   }
 
   private setHero(user: User): void {
-    const heroId = user.selectedHeroesIds[user.selectedHeroesIds.length - 1];
+    const heroId = user.heroToFight || user.selectedHeroesIds[user.selectedHeroesIds.length - 1];
     this.dataService.getById(+heroId).pipe(takeUntil(this.destroy$))
       .subscribe((hero: Hero) => this.hero = hero);
   }
