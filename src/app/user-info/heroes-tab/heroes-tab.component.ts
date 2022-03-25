@@ -39,7 +39,7 @@ export class HeroesTabComponent implements OnInit {
           this.cd.markForCheck();
         }));
     }
-}
+  }
 
   private setHeroToFight(): void {
     this.heroForFight = this.user.heroToFight ?
@@ -71,5 +71,9 @@ export class HeroesTabComponent implements OnInit {
   public selectHeroToFight(id: string) {
     this.heroForFight = id;
     this.saveData();
+  }
+
+  public trackHero(index: number, hero: Hero) {
+    return hero.id;
   }
 }

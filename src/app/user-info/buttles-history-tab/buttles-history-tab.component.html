@@ -8,7 +8,8 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let buttle of battles" class="table-row">
+  <tr *ngFor="let buttle of battles; trackBy: trackBattle"
+      class="table-row">
     <td class="table-item">{{buttle.date | date:"medium"}}</td>
     <td class="table-item">{{buttle.hero}}</td>
     <td class="table-item">{{buttle.opponent}}</td>

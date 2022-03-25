@@ -1,8 +1,10 @@
 <button
-  #filter
   (click)="isOpened = !isOpened"
   class="search-filter-btn"
->A</button>
+>{{selectedLetter}}</button>
 <div *ngIf="isOpened" class="alphabet">
-  <span (click)="selectLetter(letter)" *ngFor="let letter of alphabet" class="letter">{{letter}}</span>
+  <span (click)="selectLetter(letter)"
+        *ngFor="let letter of alphabet"
+        class="letter"
+  >{{letter}}</span>
 </div>

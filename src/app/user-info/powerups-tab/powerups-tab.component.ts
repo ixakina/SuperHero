@@ -34,4 +34,8 @@ export class PowerupsTabComponent implements OnInit {
       .sort((a: PowerUp, b: PowerUp) => b.uses - a.uses)
   }
 
+  public trackPowerup(index: number, powerup: PowerUp) {
+    return powerup.name;
+  }
+
 }

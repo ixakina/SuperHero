@@ -55,6 +55,10 @@ export class HeroInfoComponent implements OnInit, OnDestroy {
     this.storage.setData(LocStorKeys.USERS, this.auth.users);
   }
 
+  public trackHeroInfo(index: number, heroDescription: any) {
+    return heroDescription;
+  }
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

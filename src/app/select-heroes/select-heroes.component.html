@@ -10,13 +10,15 @@
     </div>
     <small *ngIf="searchControl.invalid">Search field must include only text without wrapping spaces</small>
     <div *ngIf="searchHistory" class="search-history">
-      <span (click)="searchControl.setValue(item)" *ngFor="let item of searchHistory"
+      <span (click)="searchControl.setValue(item)"
+            *ngFor="let item of searchHistory; trackBy: trackSearch"
             class="search-item">{{item}}</span>
     </div>
 
     <div *ngIf="message" class="message">{{message}}</div>
     <ul class="heroes-cards-list">
-      <li *ngFor="let hero of heroes" class="hero-card">
+      <li *ngFor="let hero of heroes; trackBy: trackHero"
+          class="hero-card">
         <div class="hero-pic">
         <img alt="hero-pic" class="hero-img" src="{{hero.image.url}}">
       </div>

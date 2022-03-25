@@ -106,6 +106,14 @@ export class SelectHeroesComponent implements OnInit, OnDestroy {
     this.storage.setData(LocStorKeys.USERS, this.auth.users)
   }
 
+  public trackSearch(index: number, searchItem: string) {
+    return searchItem;
+  }
+
+  public trackHero(index: number, hero: Hero) {
+    return hero.id;
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

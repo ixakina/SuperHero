@@ -124,6 +124,11 @@ export class ButtleComponent implements OnInit, OnDestroy {
     this.powerups = this.powerups.map((powerup: PowerUp) => ({...powerup, uses: this.updateUses(powerup)}));
   }
 
+  public trackPowerup(index: number, powerup: PowerUp) {
+    return powerup.name;
+  }
+
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

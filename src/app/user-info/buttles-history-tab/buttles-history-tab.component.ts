@@ -55,4 +55,8 @@ export class ButtlesHistoryTabComponent implements OnInit {
   private setSortType(): void {
     this.sortType = this.sortType === SortType.ASK ? SortType.DESC : SortType.ASK;
   }
+
+  public trackBattle(index: number, battle: Battle) {
+    return battle.date;
+  }
 }

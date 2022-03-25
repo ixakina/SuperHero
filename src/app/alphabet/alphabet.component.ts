@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-alphabet',
@@ -9,7 +9,7 @@ import {ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Ou
 export class AlphabetComponent implements OnInit {
   public alphabet: string[] = [];
   public isOpened: boolean = false;
-  @ViewChild('filter') searchBtn: ElementRef;
+  public selectedLetter: string = 'A';
   @Output() onSelect = new EventEmitter<string>();
 
   ngOnInit(): void {
@@ -17,7 +17,7 @@ export class AlphabetComponent implements OnInit {
   }
 
   public selectLetter(letter: string) {
-    this.searchBtn.nativeElement.value = letter;
+    this.selectedLetter = letter;
     this.isOpened = !this.isOpened;
     this.onSelect.emit(letter);
   }

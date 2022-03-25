@@ -27,7 +27,7 @@
         <h3 class="list-title">powerups</h3>
         <div class="list">
           <button (click)="selectPowerup(powerup.name)"
-                  *ngFor="let powerup of powerups"
+                  *ngFor="let powerup of powerups; trackBy: trackPowerup"
                   [class.selected]="selectedPowerups.includes(powerup.name)"
                   [disabled]="powerup.uses === 0 || isFight"
                   class="powerup"

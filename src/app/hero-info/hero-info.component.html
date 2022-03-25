@@ -6,7 +6,8 @@
         class="btn dark user-info-btn"
         (click)="selectHero()"
         [disabled]="selectedHeroesIds?.includes(hero?.id)"
-      >select</button>
+      >select
+      </button>
     </div>
     <div class="hero-info">
       <div class="info-block">
@@ -16,35 +17,50 @@
       <div class="info-block">
         <h3 class="info-title">Biography</h3>
         <ul class="info-list">
-          <li class="info-item" *ngFor="let item of hero?.biography | keyvalue">{{item.key}}: {{item.value}}</li>
+          <li class="info-item"
+              *ngFor="let item of hero?.biography | keyvalue; trackBy: trackHeroInfo"
+          >{{item.key}}: {{item.value}}
+          </li>
         </ul>
       </div>
 
       <div class="info-block">
         <h3 class="info-title">Appearance</h3>
         <ul class="info-list">
-          <li class="info-item" *ngFor="let item of hero?.appearance | keyvalue">{{item.key}}: {{item.value}}</li>
+          <li class="info-item"
+              *ngFor="let item of hero?.appearance | keyvalue"
+          >{{item.key}}: {{item.value}}
+          </li>
         </ul>
       </div>
 
       <div class="info-block">
         <h3 class="info-title">Powerstats</h3>
         <ul class="info-list">
-          <li class="info-item" *ngFor="let item of hero?.powerstats| keyvalue">{{item.key}}: {{item.value}}</li>
+          <li class="info-item"
+              *ngFor="let item of hero?.powerstats| keyvalue"
+          >{{item.key}}: {{item.value}}
+          </li>
         </ul>
       </div>
 
       <div class="info-block">
         <h3 class="info-title">Work</h3>
         <ul class="info-list">
-          <li class="info-item" *ngFor="let item of hero?.work| keyvalue">{{item.key}}: {{item.value}}</li>
+          <li class="info-item"
+              *ngFor="let item of hero?.work| keyvalue"
+          >{{item.key}}: {{item.value}}
+          </li>
         </ul>
       </div>
 
       <div class="info-block">
         <h3 class="info-title">Connections</h3>
         <ul class="info-list">
-          <li class="info-item" *ngFor="let item of hero?.connections| keyvalue">{{item.key}}: {{item.value}}</li>
+          <li class="info-item"
+              *ngFor="let item of hero?.connections| keyvalue"
+          >{{item.key}}: {{item.value}}
+          </li>
         </ul>
       </div>
 
