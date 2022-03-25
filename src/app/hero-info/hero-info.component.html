@@ -28,7 +28,7 @@
         <h3 class="info-title">Appearance</h3>
         <ul class="info-list">
           <li class="info-item"
-              *ngFor="let item of hero?.appearance | keyvalue"
+              *ngFor="let item of hero?.appearance | keyvalue; trackBy: trackHeroInfo"
           >{{item.key}}: {{item.value}}
           </li>
         </ul>
@@ -38,7 +38,7 @@
         <h3 class="info-title">Powerstats</h3>
         <ul class="info-list">
           <li class="info-item"
-              *ngFor="let item of hero?.powerstats| keyvalue"
+              *ngFor="let item of hero?.powerstats| keyvalue; trackBy: trackHeroInfo"
           >{{item.key}}: {{item.value}}
           </li>
         </ul>
@@ -48,7 +48,7 @@
         <h3 class="info-title">Work</h3>
         <ul class="info-list">
           <li class="info-item"
-              *ngFor="let item of hero?.work| keyvalue"
+              *ngFor="let item of hero?.work| keyvalue; trackBy: trackHeroInfo"
           >{{item.key}}: {{item.value}}
           </li>
         </ul>
@@ -58,7 +58,7 @@
         <h3 class="info-title">Connections</h3>
         <ul class="info-list">
           <li class="info-item"
-              *ngFor="let item of hero?.connections| keyvalue"
+              *ngFor="let item of hero?.connections| keyvalue; trackBy: trackHeroInfo"
           >{{item.key}}: {{item.value}}
           </li>
         </ul>
