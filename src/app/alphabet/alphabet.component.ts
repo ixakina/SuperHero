@@ -28,4 +28,8 @@ export class AlphabetComponent implements OnInit {
     }
   }
 
+  public trackLetter(index: number, letter: string) {
+    return letter;
+  }
+
 }

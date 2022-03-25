@@ -4,7 +4,7 @@
 >{{selectedLetter}}</button>
 <div *ngIf="isOpened" class="alphabet">
   <span (click)="selectLetter(letter)"
-        *ngFor="let letter of alphabet"
+        *ngFor="let letter of alphabet; trackBy: trackLetter"
         class="letter"
   >{{letter}}</span>
 </div>
