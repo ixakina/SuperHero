@@ -55,7 +55,7 @@ export class HeroInfoComponent implements OnInit, OnDestroy {
     this.storage.setData(LocStorKeys.USERS, this.auth.users);
   }
 
-  public trackHeroInfo(index: number, heroDescription: any) {
+  public trackHeroInfo(index: number, heroDescription: Record<string, any>) {
     return heroDescription;
   }
 

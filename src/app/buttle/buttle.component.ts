@@ -120,7 +120,7 @@ export class ButtleComponent implements OnInit, OnDestroy {
     return this.selectedPowerups.includes(powerup.name) ? powerup.uses - 1 : powerup.uses;
   }
 
-  private updatePowerups(): any {
+  private updatePowerups(): void {
     this.powerups = this.powerups.map((powerup: PowerUp) => ({...powerup, uses: this.updateUses(powerup)}));
   }
 
@@ -128,10 +128,8 @@ export class ButtleComponent implements OnInit, OnDestroy {
     return powerup.name;
   }
 
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }
