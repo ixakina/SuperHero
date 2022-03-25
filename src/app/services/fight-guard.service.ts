@@ -1,11 +1,7 @@
-import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs";
 import {hasSelectedHeroes} from "../common/utils";
 
-@Injectable({
-  providedIn: 'root'
-})
 export class FightGuardService implements CanActivate {
 
   canActivate(
