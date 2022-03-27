@@ -51,6 +51,7 @@ export class ButtleComponent implements OnInit, OnDestroy {
     timer(5000).pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.isFight = !this.isFight;
       this.winner = this.getWinner();
+      document.body.style.overflow = 'hidden';
       this.updateUserData();
       this.selectedPowerups = [];
       this.cd.markForCheck();
@@ -107,13 +108,18 @@ export class ButtleComponent implements OnInit, OnDestroy {
   }
 
   private saveButtle(): void {
-    const buttle: Battle = {
+    const battle: Battle = {
       date: new Date().getTime().toFixed(),
       hero: this.hero.name,
       opponent: this.opponent.name,
       result: this.hero.name === this.winner ? 'win' : 'loss'
     };
-    this.buttles.push(buttle);
+    this.buttles.push(battle);
+  }
+
+  public closeModal(): void {
+    this.winner = '';
+    document.body.style.overflow = 'auto';
   }
 
   private updateUses(powerup: PowerUp) {
